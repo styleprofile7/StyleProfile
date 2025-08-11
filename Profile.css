@@ -1,0 +1,46 @@
+.profile-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #F5F6EF;
+  padding: 25px 30px;
+  border-radius: 12px;
+  font-family: 'Modern Serif', serif;
+  color: #1D1D22;
+  box-shadow: 0 0 15px rgba(199, 154, 75, 0.3);
+}
+
+.user-info {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.stats-section h3,
+.liked-brands h3,
+.style-tips h3 {
+  font-family: 'Century Gothic', sans-serif;
+  color: #C79A4B;
+  margin-bottom: 12px;
+}
+
+.liked-brands ul,
+.style-tips ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.liked-brands li,
+.style-tips li {
+  background-color: #C79A4B;
+  color: #F5F6EF;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}

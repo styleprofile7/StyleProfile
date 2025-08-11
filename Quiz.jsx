@@ -15,6 +15,10 @@ const personalities = {
   alt: "ALT",
 };
 
+<p className="progress">
+  Question {currentIndex + 1} of {questions.length}
+</p>
+
 // Questions with answers, each answer adds points to one or more personalities, results will show the most likely personality type for the quiz taker
 const questions = [
   {
@@ -98,9 +102,16 @@ function Quiz() {
           setScores({});
           setShowResults(false);
         }}>
-          Retake Quiz
-        </button>
-      </div>
+<button
+  className="restart-button"
+  onClick={() => {
+    setCurrentIndex(0);
+    setScores({});
+    setShowResults(false);
+  }}
+>
+  Retake Quiz
+</button>
     );
   }
 
@@ -128,5 +139,18 @@ function Quiz() {
     </div>
   );
 }
+
+<p className="description">{personalityDescriptions[topPersonality]}</p>
+
+const personalityDescriptions = {
+  "1 PERCENTER": `Your life is the epitome of luxury, success, and elegance. Keeping this in mind, you know you must find pieces with not only external beauty, but future increased value. However, tradition is king and fashion codes that represent the traditions of wealth are what you want and must have. Cheers!`,
+  INFLUENCERS: `Hopefully you go viral in any of these fits so the world knows you’re draped up and dripped out. You have to stay on trend so might even be good to tell your stylist to check here. You love the most popular fit and who would blame you; why not when you can buy it.`,
+  CREATIVE: `You strive for individuality and to release your creative energy to the world. The clothes you wear matter but they don’t have to be expensive. Everything must have YOU in it.`,
+  "HOODS FINEST": `Where you get your money from nobody knows but you are certainly contributing to the economy. Oversized fits and flashy accessories are a must. Something crazy on your feet is a need.`,
+  "RICH HOUSEWIFE": `While close to the one percenter, the rich housewife has many luxuries and freedoms which allow for more expressions. More colorful and experimental silhouettes with this persona and want to focus on finding garments and brands that you love and will grow with. No need to worry about budgets tho. Cheers!`,
+  EXECUTIVE: `You must exemplify reliability and respect, your decisions affect numerous departments and agencies. Your suits and quiet luxury exude somewhat of a 1 percenter perspective but you are not there just yet. So dress well, smell good, and handle business.`,
+  "9TO5ER": `Work hard Chill hard. Life gets hard but you still want to look good. So you find the sale items and bang for your bucks and every now and then there is a piece you have to have. Nothing wrong with that and matter of fact clothes are the best way for the 9TO5SER to gain control.`,
+  ALT: `You are not like everyone else, you’re ALT. Like creatives, you express your individuality but that creativity is put towards rebellion. The systems and powers are oppressors and your clothes will relay the freedom you feel inside. Grunge, punk, and everything anti are the best descriptors of your style and persona.`,
+};
 
 export default Quiz;

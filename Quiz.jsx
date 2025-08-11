@@ -1,3 +1,5 @@
+import './Quiz.css';
+
 import React, { useState } from 'react';
 import './Quiz.css';  
 

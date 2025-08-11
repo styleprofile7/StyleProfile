@@ -74,3 +74,10 @@
   color: #C79A4B;
   text-align: center;
 }
+
+.progress {
+  font-family: 'Century Gothic', sans-serif;
+  color: #C79A4B;
+  margin-bottom: 8px;
+  font-weight: 600;
+}

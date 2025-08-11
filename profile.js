@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Profile.css'; 
 
 function Profile({ userId }) {
   const [profile, setProfile] = useState(null);
@@ -46,22 +47,6 @@ function Profile({ userId }) {
           ))}
         </ul>
       </div>
-    </section>
-  );
-}
-  
-  return (
-    <section>
-      <h2>Your Style Profile</h2>
-      {profile.error ? (
-        <p>{profile.error}</p>
-      ) : (
-        <div>
-          <p><strong>Username:</strong> {profile.username}</p>
-          <p><strong>Email:</strong> {profile.email}</p>
-          <p><strong>Archetype:</strong> {profile.archetype}</p>
-        </div>
-      )}
     </section>
   );
 }

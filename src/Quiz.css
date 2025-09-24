@@ -1,0 +1,76 @@
+.quiz-container {
+  background-color: #F5F6EF;
+  padding: 20px 25px;
+  border-radius: 12px;
+  max-width: 480px;
+  margin: 50px auto;
+  font-family: 'Modern Serif', serif;
+  color: #1D1D22;
+  box-shadow: 0 0 15px rgba(199, 154, 75, 0.3);
+}
+
+.quiz-header {
+  font-family: 'Century Gothic', sans-serif;
+  font-size: 1.8rem;
+  color: #C79A4B;
+  margin-bottom: 25px;
+}
+
+.answers {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.answer-button {
+  background-color: #C79A4B;
+  color: #F5F6EF;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Century Gothic', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition: background-color 0.3s ease;
+  text-align: left;
+}
+
+.answer-button:hover {
+  background-color: #F8D465;
+  color: #1D1D22;
+}
+
+.answer-button.selected {
+  background-color: #1D1D22;
+  color: #F8D465;
+}
+
+.next-button {
+  background-color: #1D1D22;
+  color: #F8D465;
+  font-family: 'Century Gothic', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.next-button:disabled {
+  background-color: #c3b37f;
+  cursor: not-allowed;
+}
+
+.result {
+  font-family: 'Century Gothic', sans-serif;
+  font-weight: 900;
+  font-size: 2.2rem;
+  margin: 25px 0 30px 0;
+  color: #C79A4B;
+  text-align: center;
+}

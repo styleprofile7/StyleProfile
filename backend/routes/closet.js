@@ -82,4 +82,11 @@ router.patch('/rate', async (req, res) => {
     } catch (error) {
         return res.status(500).json({message : "Server Error"});
     }
+
 });
+
+
+// This is for users to upload their images to their profile, an actual image not just a url. 
+router.patch('/upload', async (req, res) => {
+
+    });

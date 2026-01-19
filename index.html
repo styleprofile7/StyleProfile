@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleProfile - Discover Your Fashion Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+:root {
+--off-white: #F6F5F2;
+--soft-gray: #E8E6E1;
+--card-gray: #D9D7D2;
+--slate-blue: #6B7C93;
+--muted-gold: #C2A14D;
+--dark-text: #2C2C2C;
+--light-text: #666666;
+--ochre: #CC8B3C;
+--cool-gray: #8B9AAF;
+--navy: #2C3E50;
+--plum: #6B4C5C;
+}
+
+body {
+font-family: 'Inter', sans-serif;
+background: var(--off-white);
+color: var(--dark-text);
+overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+font-family: 'Cormorant Garamond', serif;
+font-weight: 500;
+}
+
+.loading-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(135deg, var(--off-white) 0%, var(--soft-gray) 100%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+z-index: 10000;
+transition: opacity 0.5s ease-in-out;
+}
+
+.loading-screen.hide {
+opacity: 0;
+pointer-events: none;
+}
+
+.loader {
+width: 80px;
+height: 80px;
+border: 4px solid var(--soft-gray);
+border-top: 4px solid var(--slate-blue);
+border-radius: 50%;
+animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.fade-in {
+animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+nav {
+background: rgba(246, 245, 242, 0.95);
+backdrop-filter: blur(10px);
+padding: 1rem 2rem;
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 1000;
+border-bottom: 1px solid var(--soft-gray);
+transition: all 0.3s ease-in-out;
+}
+
+nav.scrolled {
+box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+max-width: 1400px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.nav-left {
+display: flex;
+align-items: center;
+gap: 2rem;
+}
+
+.back-btn {
+background: var(--slate-blue);
+color: white;
+padding: 0.6rem 1.2rem;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: 500;
+font-size: 0.95rem;
+transition: all 0.3s ease-in-out;
+display: none;
+align-items: center;
+gap: 0.5rem;
+}
+
+.back-btn.show {
+display: flex;
+animation: slideInLeft 0.3s ease-in-out;
+}
+
+@keyframes slideInLeft {
+from { opacity: 0; transform: translateX(-20px); }
+to { opacity: 1; transform: translateX(0); }
+}
+
+.back-btn:hover {
+transform: translateX(-3px);
+box-shadow: 0 4px 15px rgba(107, 124, 147, 0.3);
+}
+
+.logo {
+font-family: 'Cormorant Garamond', serif;
+font-size: 1.8rem;
+font-weight: 600;
+color: var(--dark-text);
+cursor: pointer;
+letter-spacing: 0.5px;
+transition: all 0.3s ease-in-out;
+}
+
+.logo:hover {
+color: var(--slate-blue);
+transform: scale(1.05);
+}
+
+.nav-links {
+display: flex;
+gap: 2rem;
+align-items: center;
+}
+
+.nav-links a {
+color: var(--dark-text);
+text-decoration: none;
+font-weight: 500;
+font-size: 0.95rem;
+transition: all 0.3s ease-in-out;
+position: relative;
+cursor: pointer;
+}
+
+.nav-links a::after {
+content: '';
+position: absolute;
+bottom: -5px;
+left: 0;
+width: 0;
+height: 2px;
+background: var(--slate-blue);
+transition: width 0.3s ease-in-out;
+}
+
+.nav-links a:hover::after {
+width: 100%;
+}
+
+.btn-primary {
+background: var(--slate-blue);
+color: white;
+padding: 0.7rem 1.8rem;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: 500;
+font-size: 0.95rem;
+transition: all 0.3s ease-in-out;
+box-shadow: 0 4px 15px rgba(107, 124, 147, 0.2);
+}
+
+.btn-primary:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 25px rgba(107, 124, 147, 0.3);
+}
+
+.btn-secondary {
+background: transparent;
+color: var(--slate-blue);
+padding: 0.7rem 1.8rem;
+border: 2px solid var(--slate-blue);
+border-radius: 8px;
+cursor: pointer;
+font-weight: 500;
+font-size: 0.95rem;
+transition: all 0.3s ease-in-out;
+}
+
+.btn-secondary:hover {
+background: var(--slate-blue);
+color: white;
+transform: translateY(-2px);
+}
+
+.hero {
+margin-top: 80px;
+min-height: 90vh;
+display: flex;
+align-items: center;
+padding: 2rem;
+background: linear-gradient(135deg, var(--off-white) 0%, var(--soft-gray) 100%);
+position: relative;
+overflow: hidden;
+}
+
+.hero::before {
+content: '';
+position: absolute;
+width: 600px;
+height: 600px;
+background: radial-gradient(circle, rgba(107, 124, 147, 0.15) 0%, transparent 70%);
+top: -200px;
+right: -200px;
+border-radius: 50%;
+animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+0%, 100% { transform: scale(1); opacity: 0.5; }
+50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.hero-container {
+max-width: 1400px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 4rem;
+align-items: center;
+position: relative;
+z-index: 1;
+}
+
+.hero-content h1 {
+font-size: 4rem;
+line-height: 1.2;
+margin-bottom: 1.5rem;
+color: var(--dark-text);
+animation: fadeInUp 0.8s ease-in-out;
+}
+
+@keyframes fadeInUp {
+from { opacity: 0; transform: translateY(30px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content p {
+font-size: 1.2rem;
+color: var(--light-text);
+margin-bottom: 2rem;
+line-height: 1.6;
+animation: fadeInUp 0.8s ease-in-out 0.2s both;
+}
+
+.hero-buttons {
+display: flex;
+gap: 1rem;
+animation: fadeInUp 0.8s ease-in-out 0.4s both;
+}
+
+.hero-visual {
+position: relative;
+height: 500px;
+}
+
+.floating-card {
+position: absolute;
+background: white;
+border-radius: 16px;
+padding: 1.5rem;
+box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+animation: float 3s ease-in-out infinite;
+transition: all 0.3s ease-in-out;
+}
+
+.floating-card:hover {
+transform: translateY(-10px) scale(1.05);
+box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+}
+
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-20px); }
+}
+
+.card-1 { top: 50px; left: 50px; animation-delay: 0s; }
+.card-2 { top: 200px; right: 50px; animation-delay: 1s; }
+.card-3 { bottom: 50px; left: 100px; animation-delay: 2s; }
+
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.6);
+backdrop-filter: blur(8px);
+z-index: 2000;
+align-items: center;
+justify-content: center;
+opacity: 0;
+transition: opacity 0.3s ease-in-out;
+}
+
+.modal.show {
+display: flex;
+opacity: 1;
+}
+
+.modal-content {
+background: white;
+padding: 3rem;
+border-radius: 20px;
+max-width: 450px;
+width: 90%;
+box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+transform: scale(0.9);
+transition: transform 0.3s ease-in-out;
+position: relative;
+max-height: 90vh;
+overflow-y: auto;
+}
+
+.modal.show .modal-content {
+transform: scale(1);
+animation: modalSlideIn 0.3s ease-in-out;
+}
+
+@keyframes modalSlideIn {
+from { transform: scale(0.9) translateY(-20px); opacity: 0; }
+to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-header {
+text-align: center;
+margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+font-size: 2rem;
+margin-bottom: 0.5rem;
+}
+
+.modal-header p {
+color: var(--light-text);
+}
+
+.form-group {
+margin-bottom: 1.5rem;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 500;
+color: var(--dark-text);
+}
+
+.form-group input, .form-group select, .form-group textarea {
+width: 100%;
+padding: 0.9rem;
+border: 2px solid var(--soft-gray);
+border-radius: 8px;
+font-size: 1rem;
+transition: all 0.3s ease-in-out;
+background: var(--off-white);
+font-family: 'Inter', sans-serif;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+outline: none;
+border-color: var(--slate-blue);
+background: white;
+transform: translateY(-2px);
+box-shadow: 0 4px 12px rgba(107, 124, 147, 0.15);
+}
+
+.form-submit {
+width: 100%;
+padding: 1rem;
+background: var(--slate-blue);
+color: white;
+border: none;
+border-radius: 8px;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+}
+
+.form-submit:hover:not(:disabled) {
+transform: translateY(-2px);
+box-shadow: 0 6px 25px rgba(107, 124, 147, 0.3);
+}
+
+.form-submit:disabled {
+opacity: 0.6;
+cursor: not-allowed;
+}
+
+.modal-footer {
+text-align: center;
+margin-top: 1.5rem;
+color: var(--light-text);
+}
+
+.modal-footer a {
+color: var(--slate-blue);
+text-decoration: none;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+}
+
+.modal-footer a:hover {
+color: var(--navy);
+text-decoration: underline;
+}
+
+.close-modal {
+position: absolute;
+top: 1rem;
+right: 1rem;
+background: none;
+border: none;
+font-size: 1.5rem;
+cursor: pointer;
+color: var(--light-text);
+transition: all 0.3s ease-in-out;
+}
+
+.close-modal:hover {
+color: var(--dark-text);
+transform: rotate(90deg);
+}
+
+.app-container {
+display: none;
+margin-top: 80px;
+max-width: 1400px;
+margin-left: auto;
+margin-right: auto;
+padding: 2rem;
+}
+
+.app-container.show {
+display: block;
+animation: fadeIn 0.5s ease-in-out;
+}
+
+.search-section {
+background: white;
+padding: 1.5rem;
+border-radius: 16px;
+margin-bottom: 2rem;
+box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+transition: all 0.3s ease-in-out;
+}
+
+.search-section:hover {
+box-shadow: 0 6px 30px rgba(0,0,0,0.1);
+}
+
+.search-bar {
+display: flex;
+gap: 1rem;
+align-items: center;
+flex-wrap: wrap;
+}
+
+.search-input {
+flex: 1;
+padding: 0.9rem 1.2rem;
+border: 2px solid var(--soft-gray);
+border-radius: 8px;
+font-size: 1rem;
+min-width: 300px;
+transition: all 0.3s ease-in-out;
+}
+
+.search-input:focus {
+outline: none;
+border-color: var(--slate-blue);
+box-shadow: 0 4px 12px rgba(107, 124, 147, 0.15);
+}
+
+.filter-buttons {
+display: flex;
+gap: 0.5rem;
+flex-wrap: wrap;
+}
+
+.filter-btn {
+padding: 0.6rem 1.2rem;
+background: var(--off-white);
+border: 2px solid var(--soft-gray);
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+font-size: 0.9rem;
+}
+
+.filter-btn:hover, .filter-btn.active {
+background: var(--slate-blue);
+color: white;
+border-color: var(--slate-blue);
+transform: translateY(-2px);
+}
+
+.highlights-bar {
+display: flex;
+gap: 1rem;
+margin-bottom: 2rem;
+overflow-x: auto;
+padding: 0.5rem 0;
+}
+
+.highlight-card {
+background: white;
+padding: 1.5rem 2rem;
+border-radius: 12px;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+white-space: nowrap;
+box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+border: 2px solid transparent;
+}
+
+.highlight-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+border-color: var(--slate-blue);
+}
+
+.upload-section {
+background: white;
+padding: 2rem;
+border-radius: 16px;
+margin-bottom: 2rem;
+box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+text-align: center;
+animation: fadeIn 0.5s ease-in-out;
+}
+
+.upload-area {
+border: 3px dashed var(--soft-gray);
+border-radius: 12px;
+padding: 3rem;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+background: var(--off-white);
+}
+
+.upload-area:hover {
+border-color: var(--slate-blue);
+background: white;
+transform: scale(1.02);
+}
+
+.upload-area.dragging {
+border-color: var(--slate-blue);
+background: rgba(107, 124, 147, 0.05);
+transform: scale(1.05);
+}
+
+.image-preview {
+max-width: 100%;
+max-height: 400px;
+margin: 1rem 0;
+border-radius: 12px;
+display: none;
+box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.empty-state {
+text-align: center;
+padding: 4rem 2rem;
+color: var(--light-text);
+animation: fadeIn 0.5s ease-in-out;
+}
+
+.feed-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+gap: 2rem;
+margin-bottom: 3rem;
+}
+
+.outfit-card {
+background: white;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+transition: all 0.3s ease-in-out;
+animation: fadeIn 0.5s ease-in-out;
+}
+
+.outfit-card:hover {
+transform: translateY(-8px) scale(1.02);
+box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.outfit-image {
+width: 100%;
+height: 400px;
+object-fit: cover;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+}
+
+.outfit-content {
+padding: 1.5rem;
+}
+
+.user-info {
+display: flex;
+align-items: center;
+gap: 0.8rem;
+margin-bottom: 1rem;
+}
+
+.user-avatar {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: var(--slate-blue);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: 600;
+overflow: hidden;
+transition: all 0.3s ease-in-out;
+}
+
+.user-avatar:hover {
+transform: scale(1.1);
+}
+
+.user-avatar img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.personality-badge {
+padding: 0.3rem 0.8rem;
+border-radius: 20px;
+font-size: 0.75rem;
+font-weight: 500;
+margin-left: auto;
+transition: all 0.3s ease-in-out;
+}
+
+.badge-1percenter { background: var(--ochre); color: white; }
+.badge-influencer { background: var(--cool-gray); color: white; }
+.badge-creative { background: var(--navy); color: white; }
+.badge-hoods-finest { background: var(--plum); color: white; }
+.badge-rich-housewife { background: #B4838D; color: white; }
+.badge-executive { background: #5D6D7E; color: white; }
+.badge-9to5er { background: #7F8C8D; color: white; }
+.badge-alt { background: #34495E; color: white; }
+
+.outfit-tags {
+display: flex;
+gap: 0.5rem;
+flex-wrap: wrap;
+margin-bottom: 1rem;
+}
+
+.tag {
+padding: 0.4rem 0.9rem;
+background: var(--off-white);
+border-radius: 20px;
+font-size: 0.85rem;
+color: var(--dark-text);
+transition: all 0.3s ease-in-out;
+}
+
+.tag:hover {
+background: var(--slate-blue);
+color: white;
+transform: translateY(-2px);
+}
+
+.rating-section {
+display: flex;
+align-items: center;
+gap: 1rem;
+margin: 1rem 0;
+padding: 1rem;
+background: var(--off-white);
+border-radius: 8px;
+}
+
+.stars {
+display: flex;
+gap: 0.3rem;
+}
+
+.star {
+font-size: 1.3rem;
+color: var(--soft-gray);
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+}
+
+.star.filled {
+color: var(--muted-gold);
+}
+
+.star:hover {
+transform: scale(1.3) rotate(10deg);
+}
+
+.action-buttons {
+display: flex;
+gap: 0.8rem;
+margin-top: 1rem;
+flex-wrap: wrap;
+}
+
+.action-btn {
+flex: 1;
+padding: 0.7rem;
+background: var(--off-white);
+border: 2px solid var(--soft-gray);
+border-radius: 8px;
+cursor: pointer;
+font-size: 0.9rem;
+font-weight: 500;
+transition: all 0.3s ease-in-out;
+min-width: 100px;
+}
+
+.action-btn:hover {
+background: var(--slate-blue);
+color: white;
+border-color: var(--slate-blue);
+transform: translateY(-2px);
+}
+
+.profile-dropdown {
+position: relative;
+}
+
+.profile-icon {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: var(--slate-blue);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: 600;
+cursor: pointer;
+overflow: hidden;
+transition: all 0.3s ease-in-out;
+}
+
+.profile-icon:hover {
+transform: scale(1.1);
+box-shadow: 0 4px 15px rgba(107, 124, 147, 0.3);
+}
+
+.profile-icon img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.dropdown-menu {
+position: absolute;
+top: 50px;
+right: 0;
+background: white;
+border-radius: 12px;
+box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+min-width: 220px;
+display: none;
+z-index: 100;
+animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+from { opacity: 0; transform: translateY(-10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-menu.show {
+display: block;
+}
+
+.dropdown-item {
+padding: 1rem 1.5rem;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+border-bottom: 1px solid var(--soft-gray);
+}
+
+.dropdown-item:last-child {
+border-bottom: none;
+}
+
+.dropdown-item:hover {
+background: var(--off-white);
+padding-left: 2rem;
+}
+
+.toast {
+position: fixed;
+bottom: 2rem;
+right: 2rem;
+background: white;
+padding: 1rem 1.5rem;
+border-radius: 12px;
+box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+z-index: 3000;
+display: none;
+align-items: center;
+gap: 1rem;
+min-width: 250px;
+}
+
+.toast.show {
+display: flex;
+animation: slideInRight 0.3s ease-in-out;
+}
+
+@keyframes slideInRight {
+from { transform: translateX(400px); opacity: 0; }
+to { transform: translateX(0); opacity: 1; }
+}
+
+.toast.success { border-left: 4px solid #4CAF50; }
+.toast.error { border-left: 4px solid #f44336; }
+.toast.info { border-left: 4px solid var(--slate-blue); }
+
+.closet-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 1.5rem;
+margin-top: 2rem;
+}
+
+.closet-item {
+background: white;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+transition: all 0.3s ease-in-out;
+cursor: pointer;
+}
+
+.closet-item:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.closet-item img {
+width: 100%;
+height: 250px;
+object-fit: cover;
+}
+
+.closet-item-info {
+padding: 1rem;
+}
+
+.ambassador-stats {
+background: linear-gradient(135deg, var(--ochre) 0%, var(--muted-gold) 100%);
+color: white;
+padding: 2rem;
+border-radius: 16px;
+margin-bottom: 2rem;
+text-align: center;
+}
+
+.stats-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+gap: 1rem;
+margin-top: 1.5rem;
+}
+
+.stat-card {
+background: rgba(255,255,255,0.2);
+padding: 1rem;
+border-radius: 12px;
+backdrop-filter: blur(10px);
+}
+
+.stat-card h3 {
+font-size: 2rem;
+margin-bottom: 0.5rem;
+}
+
+@media (max-width: 968px) {
+.hero-container {
+grid-template-columns: 1fr;
+}
+
+.hero-visual {
+display: none;
+}
+
+.nav-links {
+display: none;
+}
+
+.hero-content h1 {
+font-size: 2.5rem;
+}
+
+.feed-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+</head>
+<body>
+<div class="loading-screen" id="loadingScreen">
+<div class="loader"></div>
+</div>
+
+<nav id="mainNav">
+<div class="nav-container">
+<div class="nav-left">
+<button class="back-btn" id="backBtn" onclick="goBack()">← Back</button>
+<div class="logo" onclick="showPage('home')">StyleProfile</div>
+</div>
+<div class="nav-links" id="navLinks">
+<a onclick="showPage('about')">About</a>
+<a onclick="showPage('privacy')">Privacy</a>
+<button class="btn-secondary" onclick="openModal('login')">Login</button>
+<button class="btn-primary" onclick="openModal('signup')">Get Started</button>
+</div>
+<div class="profile-dropdown" id="userDropdown" style="display: none;">
+<div class="profile-icon" onclick="toggleDropdown()">
+<span id="userInitial">U</span>
+</div>
+<div class="dropdown-menu" id="dropdownMenu">
+<div class="dropdown-item" onclick="showPage('profile')">👤 My Profile</div>
+<div class="dropdown-item" onclick="showPage('upload')">📸 Upload Outfit</div>
+<div class="dropdown-item" onclick="showPage('closet')">👗 My Closet</div>
+<div class="dropdown-item" onclick="showPage('ambassador')">🌟 Ambassador</div>
+<div class="dropdown-item">💰 Points: <strong id="userPoints">0</strong></div>
+<div class="dropdown-item" onclick="logout()">🚪 Logout</div>
+</div>
+</div>
+</div>
+</nav>
+
+<section class="hero" id="heroSection">
+<div class="hero-container">
+<div class="hero-content">
+<h1>Discover Your Fashion Identity</h1>
+<p>Join our community, share your style, and connect with fashion enthusiasts worldwide.</p>
+<div class="hero-buttons">
+<button class="btn-primary" onclick="openModal('signup')">Start Your Journey</button>
+<button class="btn-secondary" onclick="showPage('about')">Learn More</button>
+</div>
+</div>
+<div class="hero-visual">
+<div class="floating-card card-1">
+<h3>✨ The Creative</h3>
+<p>Express your individuality</p>
+</div>
+<div class="floating-card card-2">
+<h3>👑 1 Percenter</h3>
+<p>Luxury & elegance</p>
+</div>
+<div class="floating-card card-3">
+<h3>🎯 The Influencer</h3>
+<p>Stay on trend</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Main Feed -->
+<div class="app-container" id="appContainer">
+<div class="search-section">
+<div class="search-bar">
+<input type="text" class="search-input" placeholder="Search by user, tags..." id="searchInput" oninput="searchFeed()">
+<div class="filter-buttons">
+<button class="filter-btn active" onclick="filterFeed('all')">All</button>
+<button class="filter-btn" onclick="filterFeed('top-rated')">Top Rated</button>
+<button class="filter-btn" onclick="filterFeed('fresh')">Fresh</button>
+</div>
+</div>
+</div>
+
+<div class="highlights-bar">
+<div class="highlight-card" onclick="showPage('upload')">
+<h4>📸 Upload Your Fit</h4>
+<p>Share your style</p>
+</div>
+<div class="highlight-card" onclick="filterFeed('fresh')">
+<h4>✨ Fresh Looks</h4>
+<p>Just posted</p>
+</div>
+<div class="highlight-card" onclick="filterFeed('top-rated')">
+<h4>⭐ Top Rated</h4>
+<p>Most loved</p>
+</div>
+</div>
+
+<div class="feed-grid" id="feedGrid">
+<div class="empty-state">
+<h3>Loading outfits...</h3>
+<p>Please wait</p>
+</div>
+</div>
+</div>
+
+<!-- Upload Page -->
+<div class="app-container" id="uploadPage" style="display: none;">
+<div class="upload-section">
+<h2 style="margin-bottom: 2rem;">Upload Your Outfit</h2>
+<div class="upload-area" id="uploadArea" onclick="document.getElementById('imageInput').click()">
+<h3>📸 Click or drag to upload</h3>
+<p>Share your fashion with the community</p>
+<p style="font-size: 0.85rem; color: var(--light-text); margin-top: 1rem;">Max size: 15MB | Formats: JPG, PNG, WebP</p>
+</div>
+<input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" style="display: none;" onchange="handleImageSelect(event)">
+<img id="imagePreview" class="image-preview">
+
+<form id="uploadForm" style="display: none; margin-top: 2rem; text-align: left;">
+<div class="form-group">
+<label>Outfit Tags (comma separated)</label>
+<input type="text" id="outfitTags" placeholder="e.g., Elegant, Street Style">
+</div>
+<div class="form-group">
+<label>Brands Featured</label>
+<input type="text" id="outfitBrands" placeholder="e.g., Zara, H&M">
+</div>
+<div class="form-group">
+<label>Occasion</label>
+<input type="text" id="outfitOccasion" placeholder="e.g., Date Night">
+</div>
+<div class="form-group">
+<label>Caption</label>
+<textarea id="outfitCaption" rows="3" placeholder="Tell us about your look..."></textarea>
+</div>
+<div class="form-group">
+<label>
+<input type="checkbox" id="addToCloset" checked style="width: auto; margin-right: 0.5rem;">
+Add to My Closet
+</label>
+</div>
+<button type="submit" class="form-submit" id="uploadSubmitBtn">Post Outfit</button>
+</form>
+</div>
+</div>
+
+<!-- Profile Page -->
+<div class="app-container" id="profilePage" style="display: none;">
+<div class="upload-section">
+<h2>My Profile</h2>
+<div style="text-align: center; margin: 2rem 0;">
+<div class="profile-icon" style="width: 100px; height: 100px; font-size: 3rem; margin: 0 auto 1rem;">
+<span id="profileInitial">U</span>
+</div>
+<h3 id="profileName">User Name</h3>
+<p id="profileEmail" style="color: var(--light-text);">user@email.com</p>
+<div class="personality-badge badge-creative" id="profilePersonality" style="margin-top: 1rem;">Creative</div>
+<p style="margin-top: 1rem; font-size: 1.5rem; color: var(--slate-blue);"><strong id="profilePoints">0</strong> Points</p>
+</div>
+<h3 style="margin-top: 2rem;">My Posts</h3>
+<div class="feed-grid" id="userOutfits"></div>
+</div>
+</div>
+
+<!-- My Closet Page -->
+<div class="app-container" id="closetPage" style="display: none;">
+<div class="upload-section">
+<h2>👗 My Closet</h2>
+<p style="color: var(--light-text); margin-bottom: 2rem;">Your personal collection of outfits</p>
+<div class="closet-grid" id="closetGrid">
+<div class="empty-state">
+<h3>Your closet is empty</h3>
+<p>Upload outfits and add them to your closet</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Ambassador Page -->
+<div class="app-container" id="ambassadorPage" style="display: none;">
+<div class="upload-section">
+<h2>🌟 Ambassador Program</h2>
+<div class="ambassador-stats">
+<h3>Your Ambassador Stats</h3>
+<div class="stats-grid">
+<div class="stat-card">
+<h3 id="ambassadorReferrals">0</h3>
+<p>Referrals</p>
+</div>
+<div class="stat-card">
+<h3 id="ambassadorEarnings">0</h3>
+<p>Points Earned</p>
+</div>
+<div class="stat-card">
+<h3 id="ambassadorLevel">Starter</h3>
+<p>Level</p>
+</div>
+</div>
+</div>
+
+<div style="background: white; padding: 2rem; border-radius: 16px; margin-top: 2rem;">
+<h3>Your Referral Link</h3>
+<div style="display: flex; gap: 1rem; margin-top: 1rem;">
+<input type="text" id="referralLink" readonly style="flex: 1; padding: 0.9rem; border: 2px solid var(--soft-gray); border-radius: 8px;">
+<button class="btn-primary" onclick="copyReferralLink()">Copy Link</button>
+</div>
+<div style="margin-top: 2rem;">
+<h4>How It Works</h4>
+<p style="margin-top: 1rem; line-height: 1.8;">1. Share your unique referral link with friends<br>
+2. When they sign up and post their first outfit, you earn 100 points<br>
+3. Reach 10 referrals to become a Bronze Ambassador<br>
+4. Unlock exclusive perks and bonuses as you level up</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- About Page -->
+<div class="app-container" id="aboutPage" style="display: none;">
+<div class="upload-section">
+<h1>About StyleProfile</h1>
+<p>StyleProfile is a new way to understand fashion. We've created a personality-driven experience that helps you discover your unique style identity.</p>
+<h2 style="margin-top: 2rem;">The 8 Fashion Personalities</h2>
+<p><strong>1. The 1 Percenter</strong> - Epitome of luxury and elegance</p>
+<p><strong>2. The Influencer</strong> - Stay on trend</p>
+<p><strong>3. The Creative</strong> - Express individuality</p>
+<p><strong>4. The Hood's Finest</strong> - Oversized and flashy</p>
+<p><strong>5. The Rich Housewife</strong> - Luxuries and expression</p>
+<p><strong>6. The Executive</strong> - Reliability and respect</p>
+<p><strong>7. The 9to5er</strong> - Work hard, look good</p>
+<p><strong>8. The Alt</strong> - Rebellious individuality</p>
+</div>
+</div>
+
+<!-- Privacy Page -->
+<div class="app-container" id="privacyPage" style="display: none;">
+<div class="upload-section">
+<h1>Privacy Policy</h1>
+<p><strong>Last Updated:</strong> November 9, 2025</p>
+<h2>Information We Collect</h2>
+<p>We collect your name and email when you create an account.</p>
+<h2>Contact</h2>
+<p>Email: styleprofileinc@gmail.com | Phone: 239-296-7762</p>
+</div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal">
+<div class="modal-content">
+<button class="close-modal" onclick="closeModal('login')">&times;</button>
+<div class="modal-header">
+<h2>Welcome Back</h2>
+<p>Login to continue your fashion journey</p>
+</div>
+<form id="loginForm" onsubmit="handleLogin(event)">
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="loginEmail" required>
+</div>
+<div class="form-group">
+<label>Password</label>
+<input type="password" id="loginPassword" required>
+</div>
+<button type="submit" class="form-submit" id="loginSubmitBtn">Login</button>
+</form>
+<div class="modal-footer">
+<a onclick="switchModal('login', 'forgotPassword')">Forgot Password?</a><br>
+Don't have an account? <a onclick="switchModal('login', 'signup')">Sign up</a>
+</div>
+</div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal" id="signupModal">
+<div class="modal-content">
+<button class="close-modal" onclick="closeModal('signup')">&times;</button>
+<div class="modal-header">
+<h2>Join StyleProfile</h2>
+<p>Start discovering your fashion identity</p>
+</div>
+<form id="signupForm" onsubmit="handleSignup(event)">
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" id="signupName" required>
+</div>
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="signupEmail" required>
+</div>
+<div class="form-group">
+<label>Password</label>
+<input type="password" id="signupPassword" required minlength="6">
+</div>
+<div class="form-group">
+<label>Fashion Personality</label>
+<select id="signupPersonality" required>
+<option value="">Select your style...</option>
+<option value="1percenter">The 1 Percenter</option>
+<option value="influencer">The Influencer</option>
+<option value="creative">The Creative</option>
+<option value="hoods-finest">The Hood's Finest</option>
+<option value="rich-housewife">The Rich Housewife</option>
+<option value="executive">The Executive</option>
+<option value="9to5er">The 9to5er</option>
+<option value="alt">The Alt</option>
+</select>
+</div>
+<div class="form-group">
+<label>Referral Code (Optional)</label>
+<input type="text" id="signupReferral" placeholder="Enter referral code">
+</div>
+<button type="submit" class="form-submit" id="signupSubmitBtn">Create Account</button>
+</form>
+<div class="modal-footer">
+Already have an account? <a onclick="switchModal('signup', 'login')">Login</a>
+</div>
+</div>
+</div>
+
+<!-- Forgot Password Modal -->
+<div class="modal" id="forgotPasswordModal">
+<div class="modal-content">
+<button class="close-modal" onclick="closeModal('forgotPassword')">&times;</button>
+<div class="modal-header">
+<h2>Reset Password</h2>
+<p>Enter your email to receive reset instructions</p>
+</div>
+<form id="forgotPasswordForm" onsubmit="handleForgotPassword(event)">
+<div class="form-group">
+<label>Email Address</label>
+<input type="email" id="forgotEmail" required>
+</div>
+<button type="submit" class="form-submit" id="forgotSubmitBtn">Send Reset Link</button>
+</form>
+<div class="modal-footer">
+<a onclick="switchModal('forgotPassword', 'login')">Back to Login</a>
+</div>
+</div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+<span id="toastMessage"></span>
+</div>
+
+<!-- Firebase SDK - CORRECT ORDER -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script>
+// Wait for Firebase to load
+if (typeof firebase === 'undefined') {
+console.error('❌ Firebase failed to load! Check internet connection.');
+alert('Firebase libraries failed to load. Please refresh the page.');
+}
+
+// Firebase Configuration
+const firebaseConfig = {
+apiKey: "AIzaSyD42eEKFteAf2A9aFUljdv56NLNL_7iWcg",
+authDomain: "styleprofile-feae3.firebaseapp.com",
+projectId: "styleprofile-feae3",
+storageBucket: "styleprofile-feae3.firebasestorage.app",
+messagingSenderId: "369107355186",
+appId: "1:369107355186:web:5cfc7cc2e34158c9be5e2b",
+measurementId: "G-8KKR37ES4F"
+};
+
+// Initialize Firebase with error checking
+let db, auth, storage;
+let firebaseInitialized = false;
+
+try {
+if (typeof firebase !== 'undefined') {
+// Check if already initialized
+if (!firebase.apps.length) {
+firebase.initializeApp(firebaseConfig);
+} else {
+firebase.app(); // Use existing app
+}
+db = firebase.firestore();
+auth = firebase.auth();
+storage = firebase.storage();
+firebaseInitialized = true;
+console.log('✅ Firebase initialized successfully');
+console.log('✅ Firestore ready');
+console.log('✅ Auth ready');
+console.log('✅ Storage ready');
+} else {
+throw new Error('Firebase library not loaded');
+}
+} catch (error) {
+console.error('❌ Firebase initialization error:', error);
+alert('Firebase initialization failed: ' + error.message + '\n\nPlease check:\n1. Internet connection\n2. Firebase configuration\n3. Browser console for details');
+firebaseInitialized = false;
+}
+
+// EmailJS Configuration
+const EMAILJS_CONFIG = {
+publicKey: '5L7vy_UOO9YZNWgAZ',
+serviceId: 'service_cc2f78o',
+templateId: 'template_uk8k6zw'
+};
+
+// Initialize EmailJS
+try {
+if (typeof emailjs !== 'undefined') {
+emailjs.init(EMAILJS_CONFIG.publicKey);
+console.log('✅ EmailJS initialized');
+} else {
+console.warn('⚠️ EmailJS not loaded');
+}
+} catch (error) {
+console.error('❌ EmailJS error:', error);
+}
+
+// State
+let currentUser = null;
+let allOutfits = [];
+let currentFilter = 'all';
+let selectedImage = null;
+let selectedFile = null;
+let pageHistory = ['home'];
+
+// Initialize App
+window.addEventListener('load', () => {
+// Check Firebase before proceeding
+if (!firebaseInitialized || typeof firebase === 'undefined') {
+console.error('❌ Firebase not initialized properly');
+document.querySelector('.loading-screen').classList.add('hide');
+showToast('Firebase initialization failed. Please refresh the page.', 'error');
+return;
+}
+
+setTimeout(() => {
+document.querySelector('.loading-screen').classList.add('hide');
+}, 1000);
+
+auth.onAuthStateChanged(async (user) => {
+if (user) {
+try {
+const userDoc = await db.collection('users').doc(user.uid).get();
+if (userDoc.exists) {
+currentUser = { uid: user.uid, ...userDoc.data() };
+showApp();
+}
+} catch (error) {
+console.error('Error loading user:', error);
+showToast('Error loading user data', 'error');
+}
+}
+});
+
+loadOutfits();
+
+window.addEventListener('scroll', () => {
+const nav = document.getElementById('mainNav');
+if (window.scrollY > 50) {
+nav.classList.add('scrolled');
+} else {
+nav.classList.remove('scrolled');
+}
+});
+
+setupDragDrop();
+});
+
+// EmailJS Function with Error Handling
+async function sendEmail(toEmail, toName, subject, message) {
+try {
+const response = await emailjs.send(
+EMAILJS_CONFIG.serviceId,
+EMAILJS_CONFIG.templateId,
+{
+to_email: toEmail,
+to_name: toName,
+from_name: "StyleProfile Team",
+subject: subject,
+message: message,
+reply_to: "styleprofileinc@gmail.com"
+}
+);
+console.log('✅ Email sent:', response);
+return { success: true };
+} catch (error) {
+console.error('❌ Email error:', error);
+return { success: false, error: error.text || error.message };
+}
+}
+
+// Modal Functions
+function openModal(modalType) {
+document.getElementById(modalType + 'Modal').classList.add('show');
+}
+
+function closeModal(modalType) {
+document.getElementById(modalType + 'Modal').classList.remove('show');
+}
+
+function switchModal(from, to) {
+closeModal(from);
+setTimeout(() => openModal(to), 300);
+}
+
+// Navigation Functions
+function goBack() {
+if (pageHistory.length > 1) {
+pageHistory.pop();
+const previousPage = pageHistory[pageHistory.length - 1];
+showPage(previousPage, false);
+}
+}
+
+function updateBackButton() {
+const backBtn = document.getElementById('backBtn');
+if (pageHistory.length > 1) {
+backBtn.classList.add('show');
+} else {
+backBtn.classList.remove('show');
+}
+}
+
+// Auth Functions
+async function handleSignup(e) {
+e.preventDefault();
+const btn = document.getElementById('signupSubmitBtn');
+btn.disabled = true;
+btn.textContent = 'Creating Account...';
+
+const name = document.getElementById('signupName').value.trim();
+const email = document.getElementById('signupEmail').value.trim();
+const password = document.getElementById('signupPassword').value;
+const personality = document.getElementById('signupPersonality').value;
+const referralCode = document.getElementById('signupReferral').value.trim();
+
+try {
+const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+const user = userCredential.user;
+
+const userData = {
+name,
+email,
+personality,
+initial: name.charAt(0).toUpperCase(),
+profileImage: null,
+points: 0,
+ratingsGiven: 0,
+postsCount: 0,
+avgRating: 0,
+referralCode: user.uid.substring(0, 8).toUpperCase(),
+referrals: 0,
+referredBy: referralCode || null,
+ambassadorLevel: 'Starter',
+joinedDate: firebase.firestore.FieldValue.serverTimestamp()
+};
+
+await db.collection('users').doc(user.uid).set(userData);
+
+if (referralCode) {
+try {
+const referrerQuery = await db.collection('users').where('referralCode', '==', referralCode).get();
+if (!referrerQuery.empty) {
+const referrerDoc = referrerQuery.docs[0];
+await db.collection('users').doc(referrerDoc.id).update({
+referrals: firebase.firestore.FieldValue.increment(1),
+points: firebase.firestore.FieldValue.increment(100)
+});
+}
+} catch (error) {
+console.error('Referral error:', error);
+}
+}
+
+await sendEmail(
+email,
+name,
+'Welcome to StyleProfile! 🎉',
+`Hi ${name}!\n\nWelcome to StyleProfile! Your fashion journey starts now.\n\nYour referral code: ${userData.referralCode}\n\nShare it with friends to earn rewards!\n\nBest regards,\nThe StyleProfile Team`
+);
+
+closeModal('signup');
+showToast('Account created successfully!', 'success');
+} catch (error) {
+console.error('Signup error:', error);
+let errorMessage = 'Signup failed. Please try again.';
+if (error.code === 'auth/email-already-in-use') {
+errorMessage = 'This email is already registered.';
+} else if (error.code === 'auth/weak-password') {
+errorMessage = 'Password should be at least 6 characters.';
+} else if (error.code === 'auth/invalid-email') {
+errorMessage = 'Invalid email address.';
+}
+showToast(errorMessage, 'error');
+}
+
+btn.disabled = false;
+btn.textContent = 'Create Account';
+}
+
+async function handleLogin(e) {
+e.preventDefault();
+const btn = document.getElementById('loginSubmitBtn');
+btn.disabled = true;
+btn.textContent = 'Logging in...';
+
+const email = document.getElementById('loginEmail').value.trim();
+const password = document.getElementById('loginPassword').value;
+
+try {
+await auth.signInWithEmailAndPassword(email, password);
+closeModal('login');
+showToast('Welcome back!', 'success');
+} catch (error) {
+console.error('Login error:', error);
+let errorMessage = 'Invalid email or password';
+if (error.code === 'auth/user-not-found') {
+errorMessage = 'No account found with this email.';
+} else if (error.code === 'auth/wrong-password') {
+errorMessage = 'Incorrect password.';
+}
+showToast(errorMessage, 'error');
+}
+
+btn.disabled = false;
+btn.textContent = 'Login';
+}
+
+async function handleForgotPassword(e) {
+e.preventDefault();
+const btn = document.getElementById('forgotSubmitBtn');
+btn.disabled = true;
+btn.textContent = 'Sending...';
+
+const email = document.getElementById('forgotEmail').value.trim();
+
+try {
+await auth.sendPasswordResetEmail(email);
+showToast('Password reset email sent! Check your inbox.', 'success');
+closeModal('forgotPassword');
+document.getElementById('forgotEmail').value = '';
+} catch (error) {
+console.error('Password reset error:', error);
+let errorMessage = 'Failed to send reset email';
+if (error.code === 'auth/user-not-found') {
+errorMessage = 'No account found with this email.';
+} else if (error.code === 'auth/invalid-email') {
+errorMessage = 'Invalid email address.';
+}
+showToast(errorMessage, 'error');
+}
+
+btn.disabled = false;
+btn.textContent = 'Send Reset Link';
+}
+
+async function logout() {
+if (confirm('Are you sure you want to logout?')) {
+try {
+await auth.signOut();
+currentUser = null;
+location.reload();
+} catch (error) {
+console.error('Logout error:', error);
+showToast('Logout failed', 'error');
+}
+}
+}
+
+function showApp() {
+document.getElementById('heroSection').style.display = 'none';
+document.getElementById('navLinks').style.display = 'none';
+document.getElementById('userDropdown').style.display = 'block';
+document.getElementById('appContainer').classList.add('show');
+
+if (currentUser.profileImage) {
+document.getElementById('userInitial').innerHTML = `<img src="${currentUser.profileImage}">`;
+} else {
+document.getElementById('userInitial').textContent = currentUser.initial;
+}
+
+document.getElementById('userPoints').textContent = currentUser.points || 0;
+loadOutfits();
+}
+
+function showPage(page, addToHistory = true) {
+document.getElementById('heroSection').style.display = 'none';
+document.getElementById('appContainer').style.display = 'none';
+document.getElementById('uploadPage').style.display = 'none';
+document.getElementById('profilePage').style.display = 'none';
+document.getElementById('closetPage').style.display = 'none';
+document.getElementById('ambassadorPage').style.display = 'none';
+document.getElementById('aboutPage').style.display = 'none';
+document.getElementById('privacyPage').style.display = 'none';
+
+if (addToHistory) {
+pageHistory.push(page);
+}
+updateBackButton();
+
+if (page === 'home') {
+if (currentUser) {
+document.getElementById('appContainer').style.display = 'block';
+loadOutfits();
+} else {
+document.getElementById('heroSection').style.display = 'flex';
+}
+} else if (page === 'upload' && currentUser) {
+document.getElementById('uploadPage').style.display = 'block';
+} else if (page === 'profile' && currentUser) {
+showProfilePage();
+} else if (page === 'closet' && currentUser) {
+showClosetPage();
+} else if (page === 'ambassador' && currentUser) {
+showAmbassadorPage();
+} else if (page === 'about') {
+document.getElementById('aboutPage').style.display = 'block';
+} else if (page === 'privacy') {
+document.getElementById('privacyPage').style.display = 'block';
+}
+
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showProfilePage() {
+document.getElementById('profilePage').style.display = 'block';
+document.getElementById('profileInitial').textContent = currentUser.initial;
+document.getElementById('profileName').textContent = currentUser.name;
+document.getElementById('profileEmail').textContent = currentUser.email;
+document.getElementById('profilePersonality').textContent = getPersonalityName(currentUser.personality);
+document.getElementById('profilePersonality').className = `personality-badge badge-${currentUser.personality}`;
+document.getElementById('profilePoints').textContent = currentUser.points || 0;
+loadUserOutfits();
+}
+
+function showClosetPage() {
+document.getElementById('closetPage').style.display = 'block';
+loadCloset();
+}
+
+function showAmbassadorPage() {
+document.getElementById('ambassadorPage').style.display = 'block';
+document.getElementById('ambassadorReferrals').textContent = currentUser.referrals || 0;
+document.getElementById('ambassadorEarnings').textContent = (currentUser.referrals || 0) * 100;
+document.getElementById('ambassadorLevel').textContent = getAmbassadorLevel(currentUser.referrals || 0);
+document.getElementById('referralLink').value = `${window.location.origin}?ref=${currentUser.referralCode}`;
+}
+
+function getAmbassadorLevel(referrals) {
+if (referrals >= 50) return 'Diamond';
+if (referrals >= 25) return 'Gold';
+if (referrals >= 10) return 'Silver';
+if (referrals >= 5) return 'Bronze';
+return 'Starter';
+}
+
+function copyReferralLink() {
+const link = document.getElementById('referralLink');
+link.select();
+document.execCommand('copy');
+showToast('Referral link copied!', 'success');
+}
+
+function toggleDropdown() {
+document.getElementById('dropdownMenu').classList.toggle('show');
+}
+
+window.addEventListener('click', (e) => {
+if (!e.target.closest('.profile-dropdown')) {
+document.getElementById('dropdownMenu').classList.remove('show');
+}
+});
+
+function showToast(message, type = 'success') {
+const toast = document.getElementById('toast');
+document.getElementById('toastMessage').textContent = message;
+toast.className = `toast ${type} show`;
+setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// Drag and Drop Upload
+function setupDragDrop() {
+const uploadArea = document.getElementById('uploadArea');
+
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+uploadArea.addEventListener(eventName, (e) => {
+e.preventDefault();
+e.stopPropagation();
+}, false);
+});
+
+['dragenter', 'dragover'].forEach(eventName => {
+uploadArea.addEventListener(eventName, () => uploadArea.classList.add('dragging'), false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('dragging'), false);
+});
+
+uploadArea.addEventListener('drop', (e) => {
+const files = e.dataTransfer.files;
+if (files.length > 0) {
+handleImageSelect({ target: { files } });
+}
+}, false);
+}
+
+// Image Upload with AUTOMATIC COMPRESSION to fit Firestore
+function handleImageSelect(event) {
+const file = event.target.files[0];
+if (!file) {
+showToast('No file selected', 'error');
+return;
+}
+
+// Check file type
+if (!file.type.match('image.*')) {
+showToast('Please select an image file (JPG, PNG, WebP)', 'error');
+document.getElementById('imageInput').value = '';
+return;
+}
+
+// Check file size - Accept up to 15MB, will auto-compress
+const maxSize = 15 * 1024 * 1024; // 15MB in bytes
+if (file.size > maxSize) {
+const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+showToast(`Image is ${sizeMB}MB. Maximum size is 15MB. Please choose a smaller image.`, 'error');
+document.getElementById('imageInput').value = '';
+return;
+}
+
+selectedFile = file;
+const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+showToast(`Processing image (${sizeMB}MB)...`, 'info');
+
+const reader = new FileReader();
+reader.onload = (e) => {
+try {
+const img = new Image();
+img.onload = () => {
+// Compress image to fit Firestore 1MB limit
+compressImage(img, file.type).then(compressedDataUrl => {
+selectedImage = compressedDataUrl;
+document.getElementById('imagePreview').src = selectedImage;
+document.getElementById('imagePreview').style.display = 'block';
+document.getElementById('uploadForm').style.display = 'block';
+const compressedSize = ((compressedDataUrl.length * 0.75) / (1024 * 1024)).toFixed(2);
+showToast(`Image ready! (Compressed to ${compressedSize}MB)`, 'success');
+}).catch(err => {
+console.error('Compression error:', err);
+showToast('Failed to process image', 'error');
+});
+};
+img.onerror = () => {
+showToast('Failed to load image', 'error');
+selectedImage = null;
+selectedFile = null;
+};
+img.src = e.target.result;
+} catch (error) {
+console.error('Image load error:', error);
+showToast('Failed to load image', 'error');
+selectedImage = null;
+selectedFile = null;
+}
+};
+reader.onerror = () => {
+showToast('Failed to read file', 'error');
+selectedImage = null;
+selectedFile = null;
+document.getElementById('imageInput').value = '';
+};
+reader.readAsDataURL(file);
+}
+
+// Compress image to fit within Firestore limits
+function compressImage(img, mimeType) {
+return new Promise((resolve, reject) => {
+const canvas = document.createElement('canvas');
+let width = img.width;
+let height = img.height;
+
+// Calculate max dimensions to keep under 1MB when base64 encoded
+// Target 800KB to be safe (leaves room for other data)
+const maxSizeBytes = 800 * 1024; // 800KB
+const maxDimension = 1920; // Max width/height
+
+// First, resize if image is too large
+if (width > maxDimension || height > maxDimension) {
+if (width > height) {
+height = (height / width) * maxDimension;
+width = maxDimension;
+} else {
+width = (width / height) * maxDimension;
+height = maxDimension;
+}
+}
+
+canvas.width = width;
+canvas.height = height;
+
+const ctx = canvas.getContext('2d');
+ctx.drawImage(img, 0, 0, width, height);
+
+// Start with quality 0.8 and reduce if needed
+let quality = 0.8;
+let iterations = 0;
+const maxIterations = 10;
+
+function tryCompress() {
+const dataUrl = canvas.toDataURL(mimeType || 'image/jpeg', quality);
+const sizeBytes = (dataUrl.length * 0.75); // Approximate size
+
+if (sizeBytes <= maxSizeBytes || iterations >= maxIterations || quality <= 0.1) {
+resolve(dataUrl);
+} else {
+quality -= 0.1;
+iterations++;
+setTimeout(tryCompress, 10); // Async to prevent blocking
+}
+}
+
+tryCompress();
+});
+}
+
+// Upload Outfit - COMPLETELY FIXED WITH 15MB LIMIT
+document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+e.preventDefault();
+
+if (!selectedImage || !currentUser) {
+showToast('Please select an image first', 'error');
+return;
+}
+
+const btn = document.getElementById('uploadSubmitBtn');
+btn.disabled = true;
+btn.textContent = 'Uploading...';
+
+const tags = document.getElementById('outfitTags').value.split(',').map(t => t.trim()).filter(t => t);
+const addToCloset = document.getElementById('addToCloset').checked;
+
+try {
+console.log('Starting upload...');
+console.log('Image size:', selectedImage.length, 'characters');
+
+// Check if image is too large for Firestore (Firestore has 1MB limit per document)
+// Solution: Compress or use Firebase Storage
+const imageSizeInMB = (selectedImage.length * 0.75) / (1024 * 1024); // Approximate size in MB
+console.log('Estimated image size:', imageSizeInMB.toFixed(2), 'MB');
+
+if (imageSizeInMB > 1) {
+showToast('Compressing image for upload...', 'info');
+// For images larger than 1MB, we need to use Firebase Storage
+if (selectedFile && storage && firebaseInitialized) {
+try {
+const timestamp = Date.now();
+const fileName = selectedFile.name.replace(/[^a-zA-Z0-9.]/g, '_');
+const storageRef = storage.ref(`outfits/${currentUser.uid}/${timestamp}_${fileName}`);
+
+showToast('Uploading to cloud storage...', 'info');
+const uploadTask = await storageRef.put(selectedFile);
+const imageURL = await uploadTask.ref.getDownloadURL();
+console.log('Image uploaded to Storage:', imageURL);
+
+const outfitData = {
+userId: currentUser.uid,
+userName: currentUser.name,
+userInitial: currentUser.initial,
+userProfileImage: currentUser.profileImage || null,
+personality: currentUser.personality,
+image: imageURL, // Using Storage URL
+tags: tags,
+brands: document.getElementById('outfitBrands').value.trim(),
+occasion: document.getElementById('outfitOccasion').value.trim(),
+caption: document.getElementById('outfitCaption').value.trim(),
+inCloset: addToCloset,
+ratings: [],
+avgRating: 0,
+totalRatings: 0,
+comments: [],
+likes: [],
+timestamp: firebase.firestore.FieldValue.serverTimestamp()
+};
+
+console.log('Saving to Firestore...');
+const docRef = await db.collection('outfits').add(outfitData);
+console.log('Outfit saved with ID:', docRef.id);
+} catch (storageError) {
+console.error('Storage upload failed:', storageError);
+throw new Error('Image too large. Please compress it or enable Firebase Storage.');
+}
+} else {
+throw new Error('Image too large for direct upload. Please compress it or use a smaller image.');
+}
+} else {
+// Image is small enough for direct Firestore storage
+const outfitData = {
+userId: currentUser.uid,
+userName: currentUser.name,
+userInitial: currentUser.initial,
+userProfileImage: currentUser.profileImage || null,
+personality: currentUser.personality,
+image: selectedImage, // Using base64 directly
+tags: tags,
+brands: document.getElementById('outfitBrands').value.trim(),
+occasion: document.getElementById('outfitOccasion').value.trim(),
+caption: document.getElementById('outfitCaption').value.trim(),
+inCloset: addToCloset,
+ratings: [],
+avgRating: 0,
+totalRatings: 0,
+comments: [],
+likes: [],
+timestamp: firebase.firestore.FieldValue.serverTimestamp()
+};
+
+console.log('Saving to Firestore...');
+const docRef = await db.collection('outfits').add(outfitData);
+console.log('Outfit saved with ID:', docRef.id);
+}
+
+console.log('Updating user points...');
+await db.collection('users').doc(currentUser.uid).update({
+postsCount: firebase.firestore.FieldValue.increment(1),
+points: firebase.firestore.FieldValue.increment(50)
+});
+
+// Update local user data
+currentUser.points = (currentUser.points || 0) + 50;
+currentUser.postsCount = (currentUser.postsCount || 0) + 1;
+document.getElementById('userPoints').textContent = currentUser.points;
+
+console.log('Upload complete!');
+
+// Reset form
+document.getElementById('uploadForm').reset();
+document.getElementById('imagePreview').style.display = 'none';
+document.getElementById('imagePreview').src = '';
+document.getElementById('uploadForm').style.display = 'none';
+document.getElementById('imageInput').value = '';
+selectedImage = null;
+selectedFile = null;
+
+showToast('Outfit posted successfully! +50 points', 'success');
+
+// Reload feed and redirect
+await loadOutfits();
+setTimeout(() => {
+showPage('home');
+}, 500);
+
+} catch (error) {
+console.error('Full upload error:', error);
+console.error('Error code:', error.code);
+console.error('Error message:', error.message);
+
+let errorMsg = 'Upload failed. ';
+if (error.code === 'permission-denied') {
+errorMsg += 'Database permission denied. Please check Firestore rules.';
+} else if (error.code === 'unavailable') {
+errorMsg += 'Network error. Check your internet connection.';
+} else if (error.message.includes('too large')) {
+errorMsg = error.message;
+} else if (error.message) {
+errorMsg += error.message;
+} else {
+errorMsg += 'Please try again.';
+}
+showToast(errorMsg, 'error');
+} finally {
+btn.disabled = false;
+btn.textContent = 'Post Outfit';
+}
+});
+
+// Load Outfits
+async function loadOutfits() {
+try {
+const snapshot = await db.collection('outfits').orderBy('timestamp', 'desc').limit(50).get();
+allOutfits = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+renderFeed();
+} catch (error) {
+console.error('Load outfits error:', error);
+document.getElementById('feedGrid').innerHTML = '<div class="empty-state"><h3>No outfits yet</h3><p>Be the first to post!</p></div>';
+}
+}
+
+function renderFeed() {
+const feedGrid = document.getElementById('feedGrid');
+let filtered = [...allOutfits];
+
+if (currentFilter === 'top-rated') {
+filtered.sort((a, b) => (b.avgRating || 0) - (a.avgRating || 0));
+} else if (currentFilter === 'fresh') {
+filtered.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+}
+
+if (filtered.length === 0) {
+feedGrid.innerHTML = '<div class="empty-state"><h3>No outfits yet!</h3><p>Be the first to share</p></div>';
+return;
+}
+
+feedGrid.innerHTML = '';
+filtered.forEach(outfit => {
+feedGrid.appendChild(createOutfitCard(outfit));
+});
+}
+
+function createOutfitCard(outfit) {
+const card = document.createElement('div');
+card.className = 'outfit-card';
+
+const isOwnOutfit = currentUser && outfit.userId === currentUser.uid;
+const userRating = outfit.ratings?.find(r => r.userId === currentUser?.uid);
+const isLiked = outfit.likes?.includes(currentUser?.uid);
+
+card.innerHTML = `
+<img src="${outfit.image}" alt="Outfit" class="outfit-image">
+<div class="outfit-content">
+<div class="user-info">
+<div class="user-avatar">
+${outfit.userProfileImage ? `<img src="${outfit.userProfileImage}">` : outfit.userInitial}
+</div>
+<span style="font-weight: 600;">${outfit.userName}</span>
+<span class="personality-badge badge-${outfit.personality}">
+${getPersonalityName(outfit.personality)}
+</span>
+</div>
+
+${outfit.tags && outfit.tags.length > 0 ? `
+<div class="outfit-tags">
+${outfit.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+</div>
+` : ''}
+
+<div class="rating-section">
+<div class="stars">
+${[1,2,3,4,5].map(i => `
+<span class="star ${i <= (userRating?.rating || 0) ? 'filled' : ''}" 
+onclick="rateOutfit('${outfit.id}', ${i})"
+${userRating || !currentUser ? 'style="cursor: not-allowed;"' : ''}>★</span>
+`).join('')}
+</div>
+<span class="rating-info" style="font-size: 0.9rem; color: var(--light-text);">${(outfit.avgRating || 0).toFixed(1)}★ (${outfit.totalRatings || 0})</span>
+</div>
+
+<div style="margin: 1rem 0;">
+${outfit.brands ? `<p><strong>Brands:</strong> ${outfit.brands}</p>` : ''}
+${outfit.occasion ? `<p><strong>Occasion:</strong> ${outfit.occasion}</p>` : ''}
+${outfit.caption ? `<p style="color: var(--light-text);">${outfit.caption}</p>` : ''}
+</div>
+
+<div style="display: flex; gap: 0.5rem; margin: 1rem 0;">
+<button class="action-btn" onclick="likeOutfit('${outfit.id}')" style="background: ${isLiked ? 'var(--muted-gold)' : 'var(--off-white)'}; color: ${isLiked ? 'white' : 'var(--dark-text)'};">
+❤️ ${(outfit.likes || []).length}
+</button>
+</div>
+
+<div class="action-buttons">
+<button class="action-btn" onclick="shareOutfit('${outfit.id}')">🔗 Share</button>
+${isOwnOutfit ? `<button class="action-btn" style="background: #f44336; color: white;" onclick="deleteOutfit('${outfit.id}')">🗑️ Delete</button>` : ''}
+</div>
+</div>
+`;
+
+return card;
+}
+
+async function rateOutfit(outfitId, rating) {
+if (!currentUser) {
+showToast('Please login to rate', 'error');
+return;
+}
+
+try {
+const outfitRef = db.collection('outfits').doc(outfitId);
+const outfit = await outfitRef.get();
+const data = outfit.data();
+
+if (data.ratings?.find(r => r.userId === currentUser.uid)) {
+showToast('Already rated!', 'error');
+return;
+}
+
+const newRatings = [...(data.ratings || []), { userId: currentUser.uid, rating }];
+const avgRating = newRatings.reduce((sum, r) => sum + r.rating, 0) / newRatings.length;
+
+await outfitRef.update({
+ratings: newRatings,
+totalRatings: newRatings.length,
+avgRating
+});
+
+await db.collection('users').doc(currentUser.uid).update({
+ratingsGiven: firebase.firestore.FieldValue.increment(1),
+points: firebase.firestore.FieldValue.increment(10)
+});
+
+currentUser.points += 10;
+document.getElementById('userPoints').textContent = currentUser.points;
+
+showToast(`Rated ${rating} stars! +10 points`, 'success');
+loadOutfits();
+} catch (error) {
+console.error('Rating error:', error);
+showToast('Rating failed', 'error');
+}
+}
+
+async function likeOutfit(outfitId) {
+if (!currentUser) {
+showToast('Please login', 'error');
+return;
+}
+
+try {
+const outfitRef = db.collection('outfits').doc(outfitId);
+const outfit = await outfitRef.get();
+const data = outfit.data();
+const likes = data.likes || [];
+
+const index = likes.indexOf(currentUser.uid);
+if (index > -1) {
+likes.splice(index, 1);
+await outfitRef.update({ likes });
+showToast('Like removed', 'info');
+} else {
+likes.push(currentUser.uid);
+await outfitRef.update({ likes });
+await db.collection('users').doc(currentUser.uid).update({
+points: firebase.firestore.FieldValue.increment(5)
+});
+currentUser.points += 5;
+document.getElementById('userPoints').textContent = currentUser.points;
+showToast('Liked! +5 points', 'success');
+}
+
+loadOutfits();
+} catch (error) {
+console.error('Like error:', error);
+showToast('Action failed', 'error');
+}
+}
+
+function shareOutfit(outfitId) {
+const url = `${window.location.origin}?outfit=${outfitId}`;
+if (navigator.clipboard) {
+navigator.clipboard.writeText(url).then(() => {
+showToast('Link copied!', 'success');
+}).catch(() => {
+showToast('Failed to copy link', 'error');
+});
+} else {
+showToast('Link: ' + url, 'info');
+}
+}
+
+async function deleteOutfit(outfitId) {
+if (!confirm('Delete this outfit?')) return;
+
+try {
+await db.collection('outfits').doc(outfitId).delete();
+await db.collection('users').doc(currentUser.uid).update({
+postsCount: firebase.firestore.FieldValue.increment(-1)
+});
+
+showToast('Outfit deleted', 'success');
+loadOutfits();
+} catch (error) {
+console.error('Delete error:', error);
+showToast('Delete failed', 'error');
+}
+}
+
+async function loadUserOutfits() {
+try {
+const snapshot = await db.collection('outfits').where('userId', '==', currentUser.uid).get();
+const userOutfits = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+const grid = document.getElementById('userOutfits');
+if (userOutfits.length === 0) {
+grid.innerHTML = '<div class="empty-state"><h3>No outfits yet</h3><button class="btn-primary" onclick="showPage(\'upload\')" style="margin-top: 1rem;">Upload Outfit</button></div>';
+return;
+}
+
+grid.innerHTML = '';
+userOutfits.forEach(outfit => grid.appendChild(createOutfitCard(outfit)));
+} catch (error) {
+console.error('Load user outfits error:', error);
+}
+}
+
+async function loadCloset() {
+try {
+const snapshot = await db.collection('outfits')
+.where('userId', '==', currentUser.uid)
+.where('inCloset', '==', true)
+.get();
+const closetItems = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+const grid = document.getElementById('closetGrid');
+if (closetItems.length === 0) {
+grid.innerHTML = '<div class="empty-state"><h3>Your closet is empty</h3><p>Add outfits when uploading by checking "Add to My Closet"</p></div>';
+return;
+}
+
+grid.innerHTML = '';
+closetItems.forEach(item => {
+const div = document.createElement('div');
+div.className = 'closet-item';
+div.innerHTML = `
+<img src="${item.image}" alt="Closet item">
+<div class="closet-item-info">
+<p style="font-weight: 600; margin-bottom: 0.5rem;">${item.occasion || 'Outfit'}</p>
+<p style="font-size: 0.85rem; color: var(--light-text);">${item.brands || ''}</p>
+</div>
+`;
+div.onclick = () => {
+showPage('home');
+setTimeout(() => {
+const card = document.querySelector(`[onclick*="${item.id}"]`)?.closest('.outfit-card');
+if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}, 300);
+};
+grid.appendChild(div);
+});
+} catch (error) {
+console.error('Load closet error:', error);
+document.getElementById('closetGrid').innerHTML = '<div class="empty-state"><h3>Error loading closet</h3></div>';
+}
+}
+
+function filterFeed(filter) {
+currentFilter = filter;
+document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+event.target.classList.add('active');
+renderFeed();
+}
+
+function searchFeed() {
+const query = document.getElementById('searchInput').value.toLowerCase();
+if (!query) {
+renderFeed();
+return;
+}
+
+const grid = document.getElementById('feedGrid');
+const filtered = allOutfits.filter(o => 
+o.userName.toLowerCase().includes(query) ||
+o.tags?.some(tag => tag.toLowerCase().includes(query)) ||
+getPersonalityName(o.personality).toLowerCase().includes(query)
+);
+
+if (filtered.length === 0) {
+grid.innerHTML = '<div class="empty-state"><h3>No results</h3></div>';
+return;
+}
+
+grid.innerHTML = '';
+filtered.forEach(o => grid.appendChild(createOutfitCard(o)));
+}
+
+function getPersonalityName(type) {
+const names = {
+'1percenter': '1 Percenter',
+'influencer': 'Influencer',
+'creative': 'Creative',
+'hoods-finest': "Hood's Finest",
+'rich-housewife': 'Rich Housewife',
+'executive': 'Executive',
+'9to5er': '9to5er',
+'alt': 'Alt'
+};
+return names[type] || type;
+}
+
+// Check for referral code in URL
+window.addEventListener('load', () => {
+const urlParams = new URLSearchParams(window.location.search);
+const refCode = urlParams.get('ref');
+if (refCode) {
+setTimeout(() => {
+openModal('signup');
+document.getElementById('signupReferral').value = refCode;
+}, 500);
+}
+});
+</script>
+</body>
+</html>

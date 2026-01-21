@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleProfile - Discover Your Fashion Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles/main.css">
+
+</head>
+<body>
+<div class="loading-screen" id="loadingScreen">
+<div class="loader"></div>
+</div>
+
+<nav id="mainNav">
+<div class="nav-container">
+<div class="nav-left">
+<div class="logo" onclick="showPage('home')">SP</div>
+</div>
+<div class="nav-links" id="navLinks">
+<a onclick="showPage('about')">About</a>
+<a onclick="showPage('privacy')">Privacy</a>
+<button class="btn-secondary" onclick="openModal('login')">Login</button>
+<button class="btn-primary" onclick="openModal('signup')">Get Started</button>
+</div>
+<div class="profile-dropdown" id="userDropdown" style="display: none;">
+<div class="profile-icon" onclick="toggleDropdown()">
+<span id="userInitial">U</span>
+</div>
+<div class="dropdown-menu" id="dropdownMenu">
+<div class="dropdown-item" onclick="showPage('profile')">👤 My Profile</div>
+<div class="dropdown-item" onclick="showPage('upload')">📸 Upload Outfit</div>
+<div class="dropdown-item" onclick="showPage('closet')">👗 My Closet</div>
+<div class="dropdown-item" onclick="showPage('ambassador')">🌟 Ambassador</div>
+<div class="dropdown-item">💰 Points: <strong id="userPoints">0</strong></div>
+<div class="dropdown-item" onclick="logout()">🚪 Logout</div>
+</div>
+</div>
+</div>
+</nav>
+
+<section class="hero" id="heroSection">
+<div class="hero-container">
+<div class="hero-content">
+<h1>Discover Your Fashion Identity</h1>
+<p>Join our community, share your style, and connect with fashion enthusiasts worldwide.</p>
+<div class="hero-buttons">
+<button class="btn-primary" onclick="openModal('signup')">Start Your Journey</button>
+<button class="btn-secondary" onclick="showPage('about')">Learn More</button>
+</div>
+</div>
+<div class="hero-visual">
+<div class="floating-card card-1">
+<h3>✨ The Creative</h3>
+<p>Express your individuality</p>
+</div>
+<div class="floating-card card-2">
+<h3>👑 1 Percenter</h3>
+<p>Luxury & elegance</p>
+</div>
+<div class="floating-card card-3">
+<h3>🎯 The Influencer</h3>
+<p>Stay on trend</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Dynamic page container - content loaded by router -->
+<!-- CHANGED: Replaced 6 inline page divs (uploadPage, profilePage, closetPage, ambassadorPage, aboutPage, privacyPage) with single reusable container for dynamic page injection -->
+<div id="pageContainer" class="app-container"></div>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal">
+<div class="modal-content">
+<button class="close-modal" onclick="closeModal('login')">&times;</button>
+<div class="modal-header">
+<h2>Welcome Back</h2>
+<p>Login to continue your fashion journey</p>
+</div>
+<form id="loginForm" onsubmit="handleLogin(event)">
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="loginEmail" required>
+</div>
+<div class="form-group">
+<label>Password</label>
+<input type="password" id="loginPassword" required>
+</div>
+<button type="submit" class="form-submit" id="loginSubmitBtn">Login</button>
+</form>
+<div class="modal-footer">
+<a onclick="switchModal('login', 'forgotPassword')">Forgot Password?</a><br>
+Don't have an account? <a onclick="switchModal('login', 'signup')">Sign up</a>
+</div>
+</div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal" id="signupModal">
+<div class="modal-content">
+<button class="close-modal" onclick="closeModal('signup')">&times;</button>
+<div class="modal-header">
+<h2>Join StyleProfile</h2>
+<p>Start discovering your fashion identity</p>
+</div>
+<form id="signupForm" onsubmit="handleSignup(event)">
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" id="signupName" required>
+</div>
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="signupEmail" required>
+</div>
+<div class="form-group">
+<label>Password</label>
+<input type="password" id="signupPassword" required minlength="6">
+</div>
+<div class="form-group">
+<label>Fashion Personality</label>
+<select id="signupPersonality" required>
+<option value="">Select your style...</option>
+<option value="1percenter">The 1 Percenter</option>
+<option value="influencer">The Influencer</option>
+<option value="creative">The Creative</option>
+<option value="hoods-finest">The Hood's Finest</option>
+<option value="rich-housewife">The Rich Housewife</option>
+<option value="executive">The Executive</option>
+<option value="9to5er">The 9to5er</option>
+<option value="alt">The Alt</option>
+</select>
+</div>
+<div class="form-group">
+<label>Referral Code (Optional)</label>
+<input type="text" id="signupReferral" placeholder="Enter referral code">
+</div>
+<button type="submit" class="form-submit" id="signupSubmitBtn">Create Account</button>
+</form>
+<div class="modal-footer">
+Already have an account? <a onclick="switchModal('signup', 'login')">Login</a>
+</div>
+</div>
+</div>
+
+<!-- Forgot Password Modal -->
+<div class="modal" id="forgotPasswordModal">
+<div class="modal-content">
+<button class="close-modal" onclick="closeModal('forgotPassword')">&times;</button>
+<div class="modal-header">
+<h2>Reset Password</h2>
+<p>Enter your email to receive reset instructions</p>
+</div>
+<form id="forgotPasswordForm" onsubmit="handleForgotPassword(event)">
+<div class="form-group">
+<label>Email Address</label>
+<input type="email" id="forgotEmail" required>
+</div>
+<button type="submit" class="form-submit" id="forgotSubmitBtn">Send Reset Link</button>
+</form>
+<div class="modal-footer">
+<a onclick="switchModal('forgotPassword', 'login')">Back to Login</a>
+</div>
+</div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+<span id="toastMessage"></span>
+</div>
+
+<!-- Firebase SDK - CORRECT ORDER -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="./js/core/state.js"></script>
+<script src="./js/core/firebase.js"></script>
+<!-- CHANGED: Added router.js for dynamic page loading -->
+<script src="./js/core/router.js"></script>
+<script src="./js/utils/toast.js"></script>
+<script src="./js/ui/navigation.js"></script>
+<script src="./js/features/auth.js"></script>
+<script src="./js/features/upload.js"></script>
+<script src="./js/features/feed.js"></script>
+<script src="./js/features/profile.js"></script>
+<script src="./js/features/ambassador.js"></script>
+<script src="./js/main.js"></script>
+
+</body>
+</html>

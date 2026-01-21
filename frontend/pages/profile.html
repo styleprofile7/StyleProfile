@@ -1,0 +1,32 @@
+<!-- 
+  PROFILE PAGE - User Profile & My Closet
+  Displays user info (name, email, personality, points) and their posted outfits
+  Also handles the closet view with tab switching
+  Used by: logged-in users viewing their profile and saved outfits
+-->
+<div class="upload-section">
+  <h2>My Profile</h2>
+  <div style="text-align: center; margin: 2rem 0;">
+    <div class="profile-icon" style="width: 100px; height: 100px; font-size: 3rem; margin: 0 auto 1rem;">
+      <span id="profileInitial">U</span>
+    </div>
+    <h3 id="profileName">User Name</h3>
+    <p id="profileEmail" style="color: var(--light-text);">user@email.com</p>
+    <div class="personality-badge badge-creative" id="profilePersonality" style="margin-top: 1rem;">Creative</div>
+    <p style="margin-top: 1rem; font-size: 1.5rem; color: var(--slate-blue);"><strong id="profilePoints">0</strong> Points</p>
+  </div>
+  <h3 style="margin-top: 2rem;">My Posts</h3>
+  <div class="feed-grid" id="userOutfits"></div>
+</div>
+
+<!-- My Closet Page -->
+<div class="upload-section" style="margin-top: 3rem;">
+  <h2>👗 My Closet</h2>
+  <p style="color: var(--light-text); margin-bottom: 2rem;">Your personal collection of outfits</p>
+  <div class="closet-grid" id="closetGrid">
+    <div class="empty-state">
+      <h3>Your closet is empty</h3>
+      <p>Upload outfits and add them to your closet</p>
+    </div>
+  </div>
+</div>

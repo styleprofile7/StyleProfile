@@ -43,19 +43,30 @@
  */
 
 function showProfilePage() {
-  document.getElementById('profilePage').style.display = 'block';
-  document.getElementById('profileInitial').textContent = currentUser.initial;
-  document.getElementById('profileName').textContent = currentUser.name;
-  document.getElementById('profileEmail').textContent = currentUser.email;
-  document.getElementById('profilePersonality').textContent = getPersonalityName(currentUser.personality);
-  document.getElementById('profilePersonality').className = `personality-badge badge-${currentUser.personality}`;
-  document.getElementById('profilePoints').textContent = currentUser.points || 0;
+  if (!currentUser) return;
+
+  const initialEl = document.getElementById('profileInitial');
+  const nameEl = document.getElementById('profileName');
+  const emailEl = document.getElementById('profileEmail');
+  const personalityEl = document.getElementById('profilePersonality');
+  const pointsEl = document.getElementById('profilePoints');
+
+  if (initialEl) initialEl.textContent = currentUser.initial;
+  if (nameEl) nameEl.textContent = currentUser.name;
+  if (emailEl) emailEl.textContent = currentUser.email;
+  if (personalityEl) {
+    personalityEl.textContent = getPersonalityName(currentUser.personality);
+    personalityEl.className = `personality-badge badge-${currentUser.personality}`;
+  }
+  if (pointsEl) pointsEl.textContent = currentUser.points || 0;
+
   loadUserOutfits();
 }
 
 function showClosetPage() {
-  document.getElementById('closetPage').style.display = 'block';
   loadCloset();
+  const closetSection = document.getElementById('closetGrid');
+  if (closetSection) closetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 async function loadUserOutfits() {
@@ -64,6 +75,8 @@ async function loadUserOutfits() {
     const userOutfits = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
     const grid = document.getElementById('userOutfits');
+    if (!grid) return;
+
     if (userOutfits.length === 0) {
       grid.innerHTML = '<div class="empty-state"><h3>No outfits yet</h3><button class="btn-primary" onclick="showPage(\'upload\')" style="margin-top: 1rem;">Upload Outfit</button></div>';
       return;
@@ -85,6 +98,8 @@ async function loadCloset() {
     const closetItems = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
     const grid = document.getElementById('closetGrid');
+    if (!grid) return;
+
     if (closetItems.length === 0) {
       grid.innerHTML = '<div class="empty-state"><h3>Your closet is empty</h3><p>Add outfits when uploading by checking "Add to My Closet"</p></div>';
       return;

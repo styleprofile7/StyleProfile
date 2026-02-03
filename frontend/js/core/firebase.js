@@ -29,7 +29,7 @@ let firebaseInitialized = false;
 (function initFirebase() {
   // Wait for Firebase to load
   if (typeof firebase === 'undefined') {
-    console.error('❌ Firebase failed to load! Check internet connection.');
+    console.error('Firebase failed to load! Check internet connection.');
     alert('Firebase libraries failed to load. Please refresh the page.');
     return;
   }
@@ -58,9 +58,9 @@ let firebaseInitialized = false;
     window.auth = auth;
     window.storage = storage;
     window.firebaseInitialized = firebaseInitialized;
-    console.log('✅ Firebase initialized successfully');
+    console.log('Firebase initialized successfully');
   } catch (error) {
-    console.error('❌ Firebase initialization error:', error);
+    console.error('Firebase initialization error:', error);
     alert('Firebase initialization failed: ' + error.message + '\n\nPlease check:\n1. Internet connection\n2. Firebase configuration\n3. Browser console for details');
     firebaseInitialized = false;
     window.firebaseInitialized = firebaseInitialized;
@@ -78,12 +78,12 @@ const EMAILJS_CONFIG = {
   try {
     if (typeof emailjs !== 'undefined') {
       emailjs.init(EMAILJS_CONFIG.publicKey);
-      console.log('✅ EmailJS initialized');
+      console.log('EmailJS initialized');
     } else {
-      console.warn('⚠️ EmailJS not loaded');
+      console.warn('EmailJS not loaded');
     }
   } catch (error) {
-    console.error('❌ EmailJS error:', error);
+    console.error('EmailJS error:', error);
   }
 })();
 
@@ -102,10 +102,10 @@ async function sendEmail(toEmail, toName, subject, message) {
         reply_to: "styleprofileinc@gmail.com"
       }
     );
-    console.log('✅ Email sent:', response);
+    console.log('Email sent:', response);
     return { success: true };
   } catch (error) {
-    console.error('❌ Email error:', error);
+    console.error('Email error:', error);
     return { success: false, error: error.text || error.message };
   }
 }

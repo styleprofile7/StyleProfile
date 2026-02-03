@@ -77,7 +77,7 @@ window.addEventListener('load', () => {
     }
   });
 
-  setupDragDrop();
+  // setupDragDrop() is now called by router.js afterPageLoad('upload')
   // attachUploadFormHandler() is now called by router when upload page loads
   attachReferralFromUrl();
 });

@@ -45,7 +45,10 @@
 
 function setupDragDrop() {
   const uploadArea = document.getElementById('uploadArea');
-  if (!uploadArea) return;
+  if (!uploadArea) {
+    console.error('setupDragDrop: uploadArea element not found!');
+    return;
+  }
 
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     uploadArea.addEventListener(eventName, (e) => {

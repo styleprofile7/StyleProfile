@@ -3,35 +3,20 @@
   Displays community outfits, filtering, searching, and social interactions
   Used by: logged-in users viewing the main feed
 -->
-<div class="search-section">
-  <div class="search-bar">
-    <input type="text" class="search-input" placeholder="Search by user, tags..." id="searchInput" oninput="searchFeed()">
-    <div class="filter-buttons">
-      <button class="filter-btn active" onclick="filterFeed('all')">All</button>
-      <button class="filter-btn" onclick="filterFeed('top-rated')">Top Rated</button>
-      <button class="filter-btn" onclick="filterFeed('fresh')">Fresh</button>
-    </div>
-  </div>
+
+<div class="filter-buttons">
+  <button class="filter-btn" onclick="showPage('upload')"> Upload</button>
+  <button class="filter-btn active" onclick="filterFeed('all')">All</button>
+  <button class="filter-btn" onclick="filterFeed('top-rated')">Top Rated</button>
+  <button class="filter-btn" onclick="filterFeed('fresh')">Fresh</button>
 </div>
 
-<div class="highlights-bar">
-  <div class="highlight-card" onclick="showPage('upload')">
-    <h4>📸 Upload Your Fit</h4>
-    <p>Share your style</p>
-  </div>
-  <div class="highlight-card" onclick="filterFeed('fresh')">
-    <h4>✨ Fresh Looks</h4>
-    <p>Just posted</p>
-  </div>
-  <div class="highlight-card" onclick="filterFeed('top-rated')">
-    <h4>⭐ Top Rated</h4>
-    <p>Most loved</p>
-  </div>
-</div>
+<!-- commented out the buttons as they were a bit redundant in my opinion, will delete if this thought is agreed on by majority -->
 
-<div class="feed-grid" id="feedGrid">
-  <div class="empty-state">
-    <h3>Loading outfits...</h3>
-    <p>Please wait</p>
-  </div>
+
+<div class="feed-grid" id="feedGrid"></div>
+
+
+<div class="load-more-container">
+  <button class="btn-primary" onclick="loadMoreFeed()">Load More Outfits</button>
 </div>

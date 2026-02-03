@@ -34,6 +34,7 @@ const PAGES = {
   home: './pages/home.html',
   upload: './pages/upload.html',
   profile: './pages/profile.html',
+  closet: './pages/profile.html',
   ambassador: './pages/ambassador.html',
   about: './pages/about.html',
   privacy: './pages/privacy.html'
@@ -45,8 +46,8 @@ async function loadPage(pageName) {
   const container = document.getElementById('pageContainer');
   if (!container) return;
 
-  // Check cache first
-  if (pageCache[pageName]) {
+  // Skip cache for upload to always fetch fresh
+  if (pageCache[pageName] && pageName !== 'upload') {
     container.innerHTML = pageCache[pageName];
     afterPageLoad(pageName);
     return;
@@ -63,13 +64,17 @@ async function loadPage(pageName) {
     if (!response.ok) throw new Error(`Failed to load ${pageName}`);
     const html = await response.text();
     
+    if (!html || html.trim().length === 0) {
+      throw new Error(`Fetched empty HTML for ${pageName}`);
+    }
+    
     // Cache for faster subsequent loads
     pageCache[pageName] = html;
     container.innerHTML = html;
     afterPageLoad(pageName);
   } catch (error) {
     console.error(`Error loading page ${pageName}:`, error);
-    container.innerHTML = '<div class="empty-state"><h3>Page not found</h3></div>';
+    container.innerHTML = '<div class="empty-state"><h3>Page not found or failed to load</h3><p>' + error.message + '</p></div>';
   }
 }
 
@@ -77,15 +82,30 @@ function afterPageLoad(pageName) {
   // CHANGED: New function to automatically attach handlers after dynamic page injection
   // Ensures form listeners, event handlers, and page-specific functions work correctly
   // Re-attach handlers after loading new page
-  if (pageName === 'home') {
-    loadOutfits();
-  } else if (pageName === 'upload') {
-    setupDragDrop();
-    attachUploadFormHandler();
-  } else if (pageName === 'profile') {
-    showProfilePage();
-  } else if (pageName === 'ambassador') {
-    showAmbassadorPage();
+  try {
+    if (pageName === 'home') {
+        loadOutfits();
+        initSearchUI();
+    } else if (pageName === 'upload') {
+      // Defer upload handlers to next tick to avoid blocking page render in Safari
+        setTimeout(() => {
+        setupDragDrop();
+        attachUploadFormHandler();
+      }, 0);
+    } else if (pageName === 'profile') {
+        showProfilePage();
+    } else if (pageName === 'closet') {
+        showProfilePage();
+        showClosetPage();
+    } else if (pageName === 'ambassador') {
+        showAmbassadorPage();
+    }
+  } catch (error) {
+    console.error(`afterPageLoad error for ${pageName}:`, error);
+    const container = document.getElementById('pageContainer');
+    if (container) {
+      container.innerHTML = '<div class="empty-state"><h3>Could not load this page</h3><p>Please try again.</p></div>';
+    }
   }
 }
 

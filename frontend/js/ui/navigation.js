@@ -69,6 +69,10 @@ function showApp() {
   document.getElementById('navLinks').style.display = 'none';
   document.getElementById('userDropdown').style.display = 'block';
   document.getElementById('pageContainer').style.display = 'block';
+  
+  // Show search bar when logged in
+  const navSearch = document.querySelector('.nav-search');
+  if (navSearch) navSearch.classList.add('show');
 
   if (currentUser.profileImage) {
     document.getElementById('userInitial').innerHTML = `<img src="${currentUser.profileImage}">`;
@@ -93,19 +97,23 @@ function showPage(page, addToHistory = true) {
     document.getElementById('userDropdown').style.display = currentUser ? 'block' : 'none';
     document.getElementById('navLinks').style.display = currentUser ? 'none' : 'block';
     document.getElementById('pageContainer').style.display = currentUser ? 'block' : 'none';
-    if (currentUser) loadOutfits();
+    if (currentUser) {
+      loadPage('home');
+    } else {
+      // Keep hero visible for logged-out users; still reset to home markup
+      loadPage('home');
+    }
   } else if (currentUser) {
     // Load dynamic pages for authenticated users
-    if (page === 'upload' || page === 'profile' || page === 'ambassador') {
+    if (page === 'upload' || page === 'profile' || page === 'ambassador' || page === 'closet') {
       loadPage(page);
-    } else if (page === 'closet') {
-      loadPage('profile'); // closet shares profile page
-      setTimeout(() => showClosetPage(), 100);
     } else if (page === 'about' || page === 'privacy') {
       loadPage(page);
     }
   } else if (page === 'about' || page === 'privacy') {
     // Non-logged-in users can still view about/privacy
+    document.getElementById('heroSection').style.display = 'none';
+    document.getElementById('pageContainer').style.display = 'block';
     loadPage(page);
   }
 

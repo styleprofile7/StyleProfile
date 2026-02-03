@@ -6,64 +6,105 @@
 <title>StyleProfile - Discover Your Fashion Identity</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./styles/main.css">
+<script src="https://unpkg.com/lucide/dist/umd/lucide.js"></script>
 
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen">
-<div class="loader"></div>
+    <div class="loader"></div>
 </div>
 
 <nav id="mainNav">
-<div class="nav-container">
-<div class="nav-left">
-<div class="logo" onclick="showPage('home')">SP</div>
-</div>
-<div class="nav-links" id="navLinks">
-<a onclick="showPage('about')">About</a>
-<a onclick="showPage('privacy')">Privacy</a>
-<button class="btn-secondary" onclick="openModal('login')">Login</button>
-<button class="btn-primary" onclick="openModal('signup')">Get Started</button>
-</div>
-<div class="profile-dropdown" id="userDropdown" style="display: none;">
-<div class="profile-icon" onclick="toggleDropdown()">
-<span id="userInitial">U</span>
-</div>
-<div class="dropdown-menu" id="dropdownMenu">
-<div class="dropdown-item" onclick="showPage('profile')">👤 My Profile</div>
-<div class="dropdown-item" onclick="showPage('upload')">📸 Upload Outfit</div>
-<div class="dropdown-item" onclick="showPage('closet')">👗 My Closet</div>
-<div class="dropdown-item" onclick="showPage('ambassador')">🌟 Ambassador</div>
-<div class="dropdown-item">💰 Points: <strong id="userPoints">0</strong></div>
-<div class="dropdown-item" onclick="logout()">🚪 Logout</div>
-</div>
-</div>
-</div>
+
+    <div class="nav-container">
+        <!-- Left : Home Button -->
+        <div class="nav-left">
+            <div class="logo" onclick="showPage('home')">SP</div>
+            
+        </div>
+
+        <!-- Center : Wordmark -->
+        <div class="nav-center">
+            <div class="logo-wordmark" onclick="showPage('home')">StyleProfile</div>
+        </div>
+
+        <!-- Right : Profile / Links / Search -->
+        <div class="nav-right">
+            <div class="nav-links" id="navLinks">
+                <a onclick="showPage('about')">About</a>
+                <a onclick="showPage('privacy')">Privacy</a>
+                <button class="btn-secondary" onclick="openModal('login')">Login</button>
+                <button class="btn-primary" onclick="openModal('signup')">Get Started</button>
+            </div>
+
+            <div class="nav-search">
+                <div class="feed-search-wrapper" id="feedSearch">
+                    <div class="feed-search-bar">
+                        <input
+                            type="text"
+                            id="searchInput"
+                            class="feed-search-input"
+                            placeholder="Search outfits, tags, personalities…"
+                            oninput="searchFeed()"
+                        />
+
+                        <span class="search-icon" onclick="handleSearchClick()">
+                            <svg xmlns="http://www.w3.org/2000/svg" 
+                            width="24" height="24" viewBox="0 0 24 24" 
+                            fill="none" stroke="white" 
+                            stroke-width="2" stroke-linecap="round" 
+                            stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
+                            <path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown" id="userDropdown" style="display: none;">
+                <div class="profile-icon" onclick="toggleDropdown()">
+                    <span id="userInitial">U</span>
+                </div>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-item" onclick="showPage('profile')">👤 My Profile</div>
+                    <div class="dropdown-item" onclick="showPage('upload')">📸 Upload Outfit</div>
+                    <div class="dropdown-item" onclick="showPage('closet')">👗 My Closet</div>
+                    <div class="dropdown-item" onclick="showPage('ambassador')">🌟 Ambassador</div>
+                    <div class="dropdown-item">💰 Points: <strong id="userPoints">0</strong></div>
+                    <div class="dropdown-item" onclick="logout()">🚪 Logout</div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
 </nav>
 
 <section class="hero" id="heroSection">
 <div class="hero-container">
-<div class="hero-content">
-<h1>Discover Your Fashion Identity</h1>
-<p>Join our community, share your style, and connect with fashion enthusiasts worldwide.</p>
-<div class="hero-buttons">
-<button class="btn-primary" onclick="openModal('signup')">Start Your Journey</button>
-<button class="btn-secondary" onclick="showPage('about')">Learn More</button>
-</div>
-</div>
-<div class="hero-visual">
-<div class="floating-card card-1">
-<h3>✨ The Creative</h3>
-<p>Express your individuality</p>
-</div>
-<div class="floating-card card-2">
-<h3>👑 1 Percenter</h3>
-<p>Luxury & elegance</p>
-</div>
-<div class="floating-card card-3">
-<h3>🎯 The Influencer</h3>
-<p>Stay on trend</p>
-</div>
-</div>
+    <div class="hero-content">
+        <h1>Discover Your Fashion Identity</h1>
+        <p>Join our community, share your style, and connect with fashion enthusiasts worldwide.</p>
+        
+        <div class="hero-buttons">
+            <button class="btn-primary" onclick="openModal('signup')">Start Your Journey</button>
+            <button class="btn-secondary" onclick="showPage('about')">Learn More</button>
+        </div>
+    </div>
+        <div class="hero-visual">
+        <div class="floating-card card-1">
+            <h3>✨ The Creative</h3>
+            <p>Express your individuality</p>
+        </div>
+        <div class="floating-card card-2">
+            <h3>👑 1 Percenter</h3>
+            <p>Luxury & elegance</p>
+        </div>
+        <div class="floating-card card-3">
+            <h3>🎯 The Influencer</h3>
+            <p>Stay on trend</p>
+        </div>
+    </div>
 </div>
 </section>
 
@@ -79,20 +120,20 @@
 <h2>Welcome Back</h2>
 <p>Login to continue your fashion journey</p>
 </div>
-<form id="loginForm" onsubmit="handleLogin(event)">
-<div class="form-group">
-<label>Email</label>
-<input type="email" id="loginEmail" required>
-</div>
-<div class="form-group">
-<label>Password</label>
-<input type="password" id="loginPassword" required>
-</div>
-<button type="submit" class="form-submit" id="loginSubmitBtn">Login</button>
-</form>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="loginEmail" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required>
+        </div>
+            <button type="submit" class="form-submit" id="loginSubmitBtn">Login</button>
+        </form>
 <div class="modal-footer">
-<a onclick="switchModal('login', 'forgotPassword')">Forgot Password?</a><br>
-Don't have an account? <a onclick="switchModal('login', 'signup')">Sign up</a>
+    <a onclick="switchModal('login', 'forgotPassword')">Forgot Password?</a><br>
+    Don't have an account? <a onclick="switchModal('login', 'signup')">Sign up</a>
 </div>
 </div>
 </div>
@@ -101,47 +142,46 @@ Don't have an account? <a onclick="switchModal('login', 'signup')">Sign up</a>
 <div class="modal" id="signupModal">
 <div class="modal-content">
 <button class="close-modal" onclick="closeModal('signup')">&times;</button>
-<div class="modal-header">
-<h2>Join StyleProfile</h2>
-<p>Start discovering your fashion identity</p>
-</div>
-<form id="signupForm" onsubmit="handleSignup(event)">
-<div class="form-group">
-<label>Full Name</label>
-<input type="text" id="signupName" required>
-</div>
-<div class="form-group">
-<label>Email</label>
-<input type="email" id="signupEmail" required>
-</div>
-<div class="form-group">
-<label>Password</label>
-<input type="password" id="signupPassword" required minlength="6">
-</div>
-<div class="form-group">
-<label>Fashion Personality</label>
-<select id="signupPersonality" required>
-<option value="">Select your style...</option>
-<option value="1percenter">The 1 Percenter</option>
-<option value="influencer">The Influencer</option>
-<option value="creative">The Creative</option>
-<option value="hoods-finest">The Hood's Finest</option>
-<option value="rich-housewife">The Rich Housewife</option>
-<option value="executive">The Executive</option>
-<option value="9to5er">The 9to5er</option>
-<option value="alt">The Alt</option>
-</select>
-</div>
-<div class="form-group">
-<label>Referral Code (Optional)</label>
-<input type="text" id="signupReferral" placeholder="Enter referral code">
-</div>
-<button type="submit" class="form-submit" id="signupSubmitBtn">Create Account</button>
-</form>
-<div class="modal-footer">
-Already have an account? <a onclick="switchModal('signup', 'login')">Login</a>
-</div>
-</div>
+    <div class="modal-header">
+        <h2>Join StyleProfile</h2>
+        <p>Start discovering your fashion identity</p>
+    </div>
+    <form id="signupForm" onsubmit="handleSignup(event)">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="signupName" required>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="signupEmail" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="signupPassword" required minlength="6">
+        </div>
+            <div class="form-group">
+                <label>Fashion Personality</label>
+                <select id="signupPersonality" required>
+                    <option value="">Select your style...</option>
+                    <option value="1percenter">The 1 Percenter</option>
+                    <option value="influencer">The Influencer</option>
+                    <option value="creative">The Creative</option>
+                    <option value="hoods-finest">The Hood's Finest</option>
+                    <option value="rich-housewife">The Rich Housewife</option>
+                    <option value="executive">The Executive</option>
+                    <option value="9to5er">The 9to5er</option>
+                    <option value="alt">The Alt</option>
+                </select>
+            </div>
+            <div class="form-group">
+            <label>Referral Code (Optional)</label>
+            <input type="text" id="signupReferral" placeholder="Enter referral code">
+            </div>
+            <button type="submit" class="form-submit" id="signupSubmitBtn">Create Account</button>
+    </form>
+        <div class="modal-footer"> Already have an account? <a onclick="switchModal('signup', 'login')">Login</a>
+        </div>
+    </div>
 </div>
 
 <!-- Forgot Password Modal -->

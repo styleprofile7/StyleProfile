@@ -291,6 +291,31 @@ function getPersonalityName(type) {
   };
   return names[type] || type;
 }
+ 
+function initSearchUI() {
+  const wrapper = document.getElementById('feedSearch');
+  const input = document.getElementById('searchInput');
+
+  if (!wrapper || !input) return;
+
+  // Prevent multiple handlers stacking across page loads
+  if (wrapper._searchHandler) {
+    document.removeEventListener('click', wrapper._searchHandler);
+  }
+
+  function handleClick(e) {
+    if (wrapper.contains(e.target)) {
+        e.stopPropagation();
+        wrapper.classList.add('expanded');
+        input.focus();
+    } else if (!input.value) {
+        wrapper.classList.remove('expanded');
+    }
+  }
+
+  wrapper._searchHandler = handleClick;
+  document.addEventListener('click', handleClick);
+}
 
 window.loadOutfits = loadOutfits;
 window.filterFeed = filterFeed;
@@ -300,3 +325,4 @@ window.likeOutfit = likeOutfit;
 window.shareOutfit = shareOutfit;
 window.deleteOutfit = deleteOutfit;
 window.getPersonalityName = getPersonalityName;
+window.initSearchUI = initSearchUI;

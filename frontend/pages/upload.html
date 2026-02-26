@@ -1,0 +1,42 @@
+<!-- 
+  UPLOAD PAGE - Share Your Outfit
+  Allows users to upload outfit images with metadata (tags, brands, occasion, caption)
+  Includes drag-and-drop, image compression, and closet storage option
+  Used by: logged-in users posting new outfits
+-->
+<div class="upload-section">
+  <h2 style="margin-bottom: 2rem;">Upload Your Outfit</h2>
+  <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageInput').click()">
+    <h3>📸 Click or drag to upload</h3>
+    <p>Share your fashion with the community</p>
+    <p style="font-size: 0.85rem; color: var(--light-text); margin-top: 1rem;">Max size: 15MB | Formats: JPG, PNG, WebP</p>
+  </div>
+  <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" style="display: none;" onchange="handleImageSelect(event)">
+  <img id="imagePreview" class="image-preview">
+
+  <form id="uploadForm" style="display: none; margin-top: 2rem; text-align: left;">
+    <div class="form-group">
+      <label>Outfit Tags (comma separated)</label>
+      <input type="text" id="outfitTags" placeholder="e.g., Elegant, Street Style">
+    </div>
+    <div class="form-group">
+      <label>Brands Featured</label>
+      <input type="text" id="outfitBrands" placeholder="e.g., Zara, H&M">
+    </div>
+    <div class="form-group">
+      <label>Occasion</label>
+      <input type="text" id="outfitOccasion" placeholder="e.g., Date Night">
+    </div>
+    <div class="form-group">
+      <label>Caption</label>
+      <textarea id="outfitCaption" rows="3" placeholder="Tell us about your look..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>
+        <input type="checkbox" id="addToCloset" checked style="width: auto; margin-right: 0.5rem;">
+        Add to My Closet
+      </label>
+    </div>
+    <button type="submit" class="form-submit" id="uploadSubmitBtn">Post Outfit</button>
+  </form>
+</div>

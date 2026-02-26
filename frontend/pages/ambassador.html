@@ -1,0 +1,41 @@
+<!-- 
+  AMBASSADOR PAGE - Referral Program & Rewards
+  Shows referral stats (referrals, earnings, level), referral link management
+  Displays how the ambassador program works
+  Used by: logged-in users interested in earning rewards by referrals
+-->
+<div class="upload-section">
+  <h2>🌟 Ambassador Program</h2>
+  <div class="ambassador-stats">
+    <h3>Your Ambassador Stats</h3>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3 id="ambassadorReferrals">0</h3>
+        <p>Referrals</p>
+      </div>
+      <div class="stat-card">
+        <h3 id="ambassadorEarnings">0</h3>
+        <p>Points Earned</p>
+      </div>
+      <div class="stat-card">
+        <h3 id="ambassadorLevel">Starter</h3>
+        <p>Level</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background: white; padding: 2rem; border-radius: 16px; margin-top: 2rem;">
+    <h3>Your Referral Link</h3>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+      <input type="text" id="referralLink" readonly style="flex: 1; padding: 0.9rem; border: 2px solid var(--soft-gray); border-radius: 8px;">
+      <button class="btn-primary" onclick="copyReferralLink()">Copy Link</button>
+    </div>
+    <div style="margin-top: 2rem;">
+      <h4>How It Works</h4>
+      <p style="margin-top: 1rem; line-height: 1.8;">1. Share your unique referral link with friends<br>
+      2. When they sign up and post their first outfit, you earn 100 points<br>
+      3. Reach 10 referrals to become a Bronze Ambassador<br>
+      4. Unlock exclusive perks and bonuses as you level up</p>
+    </div>
+  </div>
+</div>

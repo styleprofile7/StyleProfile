@@ -1,0 +1,4 @@
+node_modules/
+.env
+changes.md
+REFACTORING_DETAILS.md

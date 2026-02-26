@@ -1,0 +1,47 @@
+
+{
+  "info": {
+    "name": "Closet API",
+    "_postman_id": "abc123",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Upload Closet Item",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "{{token}}" }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "image", "type": "file" },
+            { "key": "title", "value": "Example" }
+          ]
+        },
+        "url": "{{base_url}}/api/closet/upload"
+      }
+    },
+    {
+      "name": "Get Moodboard",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "{{token}}" }
+        ],
+        "url": "{{base_url}}/api/moodboard"
+      }
+    },
+    {
+      "name": "Ambassador Check",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "{{token}}" }
+        ],
+        "url": "{{base_url}}/api/ambassador/check"
+      }
+    }
+  ]
+}
